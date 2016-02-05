@@ -14,9 +14,11 @@ var errorHandler = require('errorhandler');
 var lusca = require('lusca');
 process.stdout.write('1');
 var methodOverride = require('method-override');
-var dotenv = require('dotenv');
-var MongoStore = require('connect-mongo/es5')(session);
 process.stdout.write('2');
+var dotenv = require('dotenv');
+process.stdout.write('3');
+var MongoStore = require('connect-mongo/es5')(session);
+process.stdout.write('4');
 var flash = require('express-flash');
 var path = require('path');
 var mongoose = require('mongoose');
@@ -57,7 +59,7 @@ var app = express();
 /**
  * Connect to MongoDB.
  */
-mongoose.connect(process.env.MONGODB || process.env.MONGOLAB_URI);
+mongoose.connect(process.env.MONGOLAB_URI || process.env.MONGODB);
 mongoose.connection.on('error', function() {
   console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
   process.exit(1);
