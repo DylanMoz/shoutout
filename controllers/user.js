@@ -18,6 +18,23 @@ exports.getLogin = function(req, res) {
   });
 };
 
+exports.getDashboard = function(req, res) {
+  if (!req.user) {
+    return res.redirect('/');
+  }
+
+  if (req.user.type === 'EMPLOYEE') {
+    res.render('account/employee_dashboard', {
+      title: 'Dashboard'
+    });
+  } else {
+    res.render('account/org_dashboard', {
+      title: 'Dashboard'
+    });
+  }
+
+};
+
 /**
  * POST /login
  * Sign in using email and password.

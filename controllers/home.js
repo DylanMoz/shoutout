@@ -4,7 +4,7 @@
  */
 exports.index = function(req, res) {
   if (req.user) {
-    res.redirect('/account');
+    res.redirect('/dashboard');
   } else {
     res.redirect('/index');
   }

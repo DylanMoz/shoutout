@@ -1,5 +1,5 @@
 doctype html
-- var htmlClass = path == '/' ? '' : 'margin-top-50'
+- var htmlClass = path == '/' || path == '/index' ? '' : 'margin-top-50'
 html(class=htmlClass)
   head
     meta(charset='utf-8')
@@ -15,7 +15,7 @@ html(class=htmlClass)
     include partials/header
 
     include partials/flash
-    if path == '/'
+    if path == '/' || path == '/index'
       block content
     else
       .container
