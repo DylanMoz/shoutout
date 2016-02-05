@@ -1,5 +1,6 @@
 doctype html
-html
+- var htmlClass = path == '/' ? '' : 'margin-top-50'
+html(class=htmlClass)
   head
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
@@ -7,18 +8,26 @@ html
     meta(name='csrf-token', content=_csrf)
     title #{title} - Hackathon Starter
     link(rel='stylesheet', href='/css/main.css')
+
+    block styles
+
   body
     include partials/header
 
-    .container
-      include partials/flash
+    include partials/flash
+    if path == '/'
       block content
+    else
+      .container
+        block content
 
     include partials/footer
 
     script(src='/js/lib/jquery.min.js')
     script(src='/js/lib/bootstrap.min.js')
     script(src='/js/main.js')
+
+    block scripts
 
     // Google Analytics: change UA-XXXXX-X to be your site's ID
     script.

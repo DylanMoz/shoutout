@@ -11689,12 +11689,16 @@ fieldset[disabled] .btn-yahoo.active {
 
 html {
   position: relative;
-  min-height: 100%;
+  height: 100%;
+  width: 100%;
 }
 
 body {
-  padding-top: 60px;
-  margin-bottom: 75px;
+  height: 100%;
+}
+
+.margin-top-50 {
+  margin-top: 50px;
 }
 
 footer {

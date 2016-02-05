@@ -100,6 +100,7 @@ app.use(lusca({
 }));
 app.use(function(req, res, next) {
   res.locals.user = req.user;
+  res.locals.path = req.path;
   next();
 });
 app.use(function(req, res, next) {
@@ -115,6 +116,7 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
  * Primary app routes.
  */
 app.get('/', homeController.index);
+app.get('/index', homeController.getIndex);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
@@ -136,14 +138,6 @@ app.get('/account/unlink/:provider', passportConf.isAuthenticated, userControlle
  * API examples routes.
  */
 app.get('/api', apiController.getApi);
-app.get('/api/stripe', apiController.getStripe);
-app.post('/api/stripe', apiController.postStripe);
-app.get('/api/twilio', apiController.getTwilio);
-app.post('/api/twilio', apiController.postTwilio);
-app.get('/api/clockwork', apiController.getClockwork);
-app.post('/api/clockwork', apiController.postClockwork);
-app.get('/api/facebook', passportConf.isAuthenticated, passportConf.isAuthorized, apiController.getFacebook);
-
 
 /**
  * OAuth authentication routes. (Sign in)
