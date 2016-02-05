@@ -17,7 +17,7 @@ var methodOverride = require('method-override');
 process.stdout.write('2');
 var dotenv = require('dotenv');
 process.stdout.write('3');
-var MongoStore = require('connect-mongo/es5')(session);
+var MongoStore = require('connect-mongo/es5')(session); // Undefined issue occurs in heroku
 process.stdout.write('4');
 var flash = require('express-flash');
 var path = require('path');
@@ -136,7 +136,13 @@ app.post('/signup', userController.postSignup);
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
 
-app.get('/dashboard', passportConf.isAuthenticated, userController.getDashboard);
+app.get('/org_dashboard', passportConf.isAuthenticated, userController.getOrgDashboard);
+app.get('/current-survey', passportConf.isAuthenticated, userController.getCurrentSurvey);
+app.get('/results', passportConf.isAuthenticated, userController.getResults);
+
+app.get('/employee/dashboard', passportConf.isAuthenticated, userController.getEmployeeDashboard);
+app.get('/employee/survey', passportConf.isAuthenticated, userController.takeSurvey);
+
 app.get('/account', passportConf.isAuthenticated, userController.getAccount);
 app.post('/account/profile', passportConf.isAuthenticated, userController.postUpdateProfile);
 app.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);

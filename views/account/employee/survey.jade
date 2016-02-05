@@ -1,0 +1,13 @@
+extends ../../layout
+
+block content
+  .page-header
+    h3 Survey
+      
+  form.form-horizontal(action='', method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group
+      label.col-sm-3.control-label(for='email') On a scale of one to ten how successful were you today?
+      .col-sm-7
+        input.form-control(type='number', name='email', id='email', value='#{user.email}')
+      

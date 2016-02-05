@@ -32,8 +32,59 @@ exports.getDashboard = function(req, res) {
       title: 'Dashboard'
     });
   }
+};
+
+exports.getOrgDashboard = function(req, res) {
+  if (!req.user) {
+    return res.redirect('/');
+  }
+
+  res.render('account/org_dashboard', {
+    title: 'Dashboard'
+  });
 
 };
+
+exports.getEmployeeDashboard = function(req, res) {
+  if (!req.user) {
+    return res.redirect('/');
+  }
+
+  res.render('account/employee_dashboard', {
+    title: 'Dashboard'
+  });
+};
+
+exports.getCurrentSurvey = function(req, res) {
+  if (!req.user) {
+    return res.redirect('/');
+  }
+
+  res.render('account/org/current-survey', {
+    title: 'Current Survey'
+  });
+};
+
+exports.getResults = function(req, res) {
+  if (!req.user) {
+    return res.redirect('/');
+  }
+
+  res.render('account/org/results', {
+    title: 'Results'
+  });
+};
+
+exports.takeSurvey = function(req, res) {
+  if (!req.user) {
+    return res.redirect('/');
+  }
+
+  res.render('account/employee/survey', {
+    title: 'Daily Survey'
+  });
+};
+
 
 /**
  * POST /login
