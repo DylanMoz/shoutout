@@ -6,20 +6,27 @@
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var compress = require('compression');
+ console.log('1');
 var favicon = require('serve-favicon');
 var session = require('express-session');
 var bodyParser = require('body-parser');
+ console.log('2');
 var logger = require('morgan');
 var errorHandler = require('errorhandler');
 var lusca = require('lusca');
+ console.log('3');
 var methodOverride = require('method-override');
 var dotenv = require('dotenv');
 var MongoStore = require('connect-mongo/es5')(session);
+ console.log('4');
 var flash = require('express-flash');
 var path = require('path');
+ console.log('5');
 var mongoose = require('mongoose');
 var passport = require('passport');
+ console.log('6');
 var expressValidator = require('express-validator');
+ console.log('7');
 var sass = require('node-sass-middleware');
 var _ = require('lodash');
 
