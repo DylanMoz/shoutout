@@ -1,6 +1,8 @@
 /**
  * Module dependencies.
  */
+ console.log('Begin app.js');
+
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var compress = require('compression');
@@ -30,7 +32,7 @@ var _ = require('lodash');
  * Default path: .env
  */
 dotenv.load({ path: '.env.example' });
-
+console.log('Var decl and env finished');
 /**
  * Controllers (route handlers).
  */
@@ -47,6 +49,7 @@ var passportConf = require('./config/passport');
 /**
  * Create Express server.
  */
+console.log('Calling Express');
 var app = express();
 
 /**
@@ -57,7 +60,7 @@ mongoose.connection.on('error', function() {
   console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
   process.exit(1);
 });
-
+console.log('Mongoose connect');
 /**
  * Express configuration.
  */
