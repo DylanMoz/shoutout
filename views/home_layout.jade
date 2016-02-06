@@ -1,6 +1,5 @@
 doctype html
-- var htmlClass = path == '/' || path == '/index' ? '' : 'margin-top-50'
-html(class=htmlClass)
+html
   head
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
@@ -12,15 +11,10 @@ html(class=htmlClass)
     block styles
 
   body
-    include partials/header
+    include partials/home_header
 
-    include partials/flash
-    if path == '/' || path == '/index'
-      block content
-    else
-      .container
-        block content
-
+    block content
+      
     include partials/footer
 
     script(src='/js/lib/jquery.min.js')

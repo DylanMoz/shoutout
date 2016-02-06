@@ -6,7 +6,8 @@ var userSchema = new mongoose.Schema({
   email: { type: String, unique: true, lowercase: true },
   password: String,
   name: String,
-  organization: String, // TODO foreign key relation
+  organization: { type: String }, // TODO foreign key relation
+  employee: { type: String },
 
   facebook: String,
   twitter: String,

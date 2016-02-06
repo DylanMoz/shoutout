@@ -13,28 +13,20 @@
 
 |          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 |              <ul class="nav navbar-nav navbar-right">
-if path == '/' || path == '/index'
-  |                  <li>
-  |                      <a class="page-scroll" href="#about">About</a>
-  |                  </li>
-  |                  <li>
-  |                      <a class="page-scroll" href="#features">Features</a>
-  |                  </li>
+|                  <li>
+|                      <a class="page-scroll" href="#about">About</a>
+|                  </li>
+|                  <li>
+|                      <a class="page-scroll" href="#features">Features</a>
+|                  </li>
 
-if user
-                      li
-                        a.page-scroll(href="/profile") 
-                          =user.name
-                      li
-                        a.page-scroll(href="/logout") Log out
-else
-  |                  <li>
-  |                      <a class="page-scroll" href="/signup">Sign Up</a>
-  |                  </li>
+|                  <li>
+|                      <a class="page-scroll" href="/signup">Sign Up</a>
+|                  </li>
 
-  |                  <li>
-  |                      <a href="/login">Log In</a>
-  |                  </li>
+|                  <li>
+|                      <a href="/login">Log In</a>
+|                  </li>
 |              </ul>
 |          </div>
 |          <!-- /.navbar-collapse -->

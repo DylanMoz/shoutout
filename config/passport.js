@@ -237,3 +237,18 @@ exports.isAuthorized = function(req, res, next) {
     res.redirect('/auth/' + provider);
   }
 };
+
+exports.isEmployee = function(req, res, next) {
+  if(req.user.employee) {
+    return next();
+  }
+  res.redirect('/')
+}
+
+exports.isOrganization = function(req, res, next) {
+  return next();
+  if(req.user.organization) {
+    return next();
+  }
+  res.redirect('/')
+}

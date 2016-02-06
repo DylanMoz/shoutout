@@ -136,9 +136,19 @@ app.post('/signup', userController.postSignup);
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
 
-app.get('/org_dashboard', passportConf.isAuthenticated, userController.getOrgDashboard);
 app.get('/current-survey', passportConf.isAuthenticated, userController.getCurrentSurvey);
 app.get('/results', passportConf.isAuthenticated, userController.getResults);
+
+
+app.use('/employee',
+  passportConf.isAuthenticated,
+  passportConf.isEmployee,
+  require('./organization/router'));
+
+app.use('/organization',
+  passportConf.isAuthenticated,
+  passportConf.isOrganization,
+  require('./organization/router'));
 
 app.get('/employee/dashboard', passportConf.isAuthenticated, userController.getEmployeeDashboard);
 app.get('/employee/survey', passportConf.isAuthenticated, userController.takeSurvey);

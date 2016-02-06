@@ -1,0 +1,42 @@
+@import "vendors/materialize/materialize_custom";
+//@import "vendors/materialize/materialize";
+@import "vendors/font-awesome/font-awesome";
+
+.button-collapse {
+  padding-left: 5px;
+}
+
+
+
+html {
+  background-color: $custom-off-white;
+  color: $custom-grey-blue-2;
+
+  @media only screen and (min-width: 993px) {
+    .container {
+      width: 80%;
+    }
+  }
+
+  h1, h2 {
+    color: $custom-grey-blue-3;
+  }
+
+  nav {
+    background-color: $custom-dark-blue-1;
+
+    i.right {
+      margin-left: 2px;
+    }
+  }
+
+  .brand-logo {
+    padding: 0 15px;
+  }
+
+  .side-nav {
+    background-color: $custom-off-white;
+  }
+
+
+}

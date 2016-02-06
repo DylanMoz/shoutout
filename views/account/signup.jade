@@ -1,39 +1,29 @@
-extends ../layout
+extends ../app_layout
 
 block content
-  .page-header
-    h3 Sign up
-  form.form-horizontal(id='signup-form', method='POST')
-    input(type='hidden', name='_csrf', value=_csrf)
-    .form-group
-      label.col-sm-3.control-label(for='name') Name
-      .col-sm-7
-        input.form-control(type='text', name='name', id='name', placeholder='Name', autofocus=true)
-    .form-group
-      label.col-sm-3.control-label(for='email') Email
-      .col-sm-7
-        input.form-control(type='email', name='email', id='email', placeholder='Email')
-    | <!--
-    .form-group
-      label.col-sm-3.control-label(for='user_type') User Type
-      .col-sm-7
-        label.radio-inline(for='employee')
-          input.form-control(type='radio', name='user_type', id='employee', value="1")
-          | Employee
-        label.radio-inline(for='org')
-          input.form-control(type='radio', name='user_type', id='org', value="0") 
-          | Organization
-    | -->
-    .form-group
-      label.col-sm-3.control-label(for='password') Password
-      .col-sm-7
-        input.form-control(type='password', name='password', id='password', placeholder='Password')
-    .form-group
-      label.col-sm-3.control-label(for='confirmPassword') Confirm Password
-      .col-sm-7
-        input.form-control(type='password', name='confirmPassword', id='confirmPassword', placeholder='Confirm Password')
-    .form-group
-      .col-sm-offset-3.col-sm-7
-        button.btn.btn-success(type='submit')
-          i.fa.fa-user-plus
-          | Signup
+  .col.s10.offset-s1.m8.offset-m2.l6.offset-l3
+    h2 Sign up
+    
+    .row
+      form.form-horizontal.col.s12(id='signup-form', method='POST')
+        input(type='hidden', name='_csrf', value=_csrf)
+        .row
+          .input-field.col.s12
+            input.validate(type='text', name="org_name", id='org_name', autofocus=true)
+            label(for='org_name') Organization Name
+          .input-field.col.s12
+            input.validate(type='email', name="email", id='email')
+            label(for='email') Email
+          .input-field.col.s12
+            input.validate(type='password', name="password", id='password')
+            label(for='password') Password
+          .input-field.col.s12
+            input.validate(type='password', name="confirmPassword", id='confirmPassword')
+            label(for='confirmPassword') Confirm Password
+          .col.s12.center-align
+            button.btn-large.waves-effect.waves-light(type='submit')
+              | Signup
+    
+    .row
+      .col.s12.center-align
+        p Are you an Employee? Your employer will send you an invitation link to join ShoutOut.
