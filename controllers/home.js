@@ -15,3 +15,16 @@ exports.getIndex = function(req, res) {
     title: 'Home'
   });
 }
+
+/**
+ * GET /edit-survey
+ * Forgot editSurvey page.
+ */
+exports.getEditSurvey = function(req, res) {
+  if (req.isAuthenticated()) {
+    res.render('account/org/edit-survey', {
+    title: 'Edit Survey'
+  });
+  }
+
+};
