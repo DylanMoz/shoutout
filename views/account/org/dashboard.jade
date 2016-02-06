@@ -1,10 +1,26 @@
 extends ../../app_layout
 
 block content
-  .col.s12
-    h2 Organization Dashboard
-    .col-sm-12
-      a.btn.btn-primary(href="/current-survey") Current Survey
-      a.btn.btn-primary(href="/results") Results
-    .col-sm-12
+
+  .container
+    .row
+      h2(align="center") Organization Dashboard
+  .col.s10.offset-s1.m8.offset-m2.l6.offset-l3
+    .row
+    .container
+      h3(align="left") Results
+      .row
+      .row
+        .col.s4.offset-s5
+          a(href="/current-survey") Current Week
+        .col.s3
+          a(href="/results") Past Weeks
+
+      .row(align="center")
+        img(src="http://mste.illinois.edu/courses/ci330ms/youtsey/BAR2.GIF")
+
+
+    .row(align="center") 
+      a.btn.btn-primary(href="/current-survey") Edit Survey
+    .row(align="center") 
       a.btn.btn-primary(href="/employee/dashboard") Employee Dashboard
