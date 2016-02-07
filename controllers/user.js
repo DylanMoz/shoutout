@@ -453,3 +453,27 @@ exports.postForgot = function(req, res, next) {
     res.redirect('/forgot');
   });
 };
+
+/**
+ * GET /org/edit-question
+ * Edit the selected question
+ */ 
+exports.getEditQuestion = function(req, res) {
+  if (req.isAuthenticated()) {
+    res.render('account/org/edit-question', {
+    title: 'Edit Question'
+  });
+  }
+};
+
+/**
+ * POST /org/edit-question
+ * Apply changes to the question and return to the edit-survey page
+ */ 
+exports.postEditQuestion = function(req, res) {
+  if (req.isAuthenticated()) {
+    res.render('account/org/edit-survey', {
+    title: 'Edit Survey'
+  });
+  }
+};

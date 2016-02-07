@@ -124,8 +124,6 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
  */
 app.get('/', homeController.index);
 app.get('/index', homeController.getIndex);
-app.get('/edit-survey', homeController.getEditSurvey);
-
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
@@ -137,7 +135,9 @@ app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
-
+app.get('/edit-survey', homeController.getEditSurvey);
+app.get('/org/edit-question', userController.getEditQuestion);
+app.post('/org/edit-question', userController.postEditQuestion);
 
 app.get('/current-survey', passportConf.isAuthenticated, userController.getCurrentSurvey);
 app.get('/results', passportConf.isAuthenticated, userController.getResults);
