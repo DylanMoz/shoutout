@@ -489,3 +489,51 @@ exports.getEditSurvey = function(req, res) {
     });
   }
 };  
+
+/**
+ * GET /new-survey
+ * Create new question
+ */
+exports.getNewQuestion = function(req, res) {
+  if (req.isAuthenticated()) {
+    res.render('account/org/new-question', {
+    title: 'New Question'
+    });
+  }
+};  
+
+/**
+ * POST /org/edit-question
+ * Forget new-question page
+ */ 
+exports.postNewQuestion = function(req, res) {
+  if (req.isAuthenticated()) {
+    res.render('account/org/edit-survey', {
+    title: 'Edit Survey'
+    });
+  }
+};
+
+/**
+ * GET /new-survey
+ * Create new question
+ */
+exports.getTakeSurvey = function(req, res) {
+  if (req.isAuthenticated()) {
+    res.render('account/employee/take-survey', {
+    title: 'Survey'
+    });
+  }
+};  
+
+/**
+ * POST /org/take-survey
+ * Forget take-survey 
+ */ 
+exports.postTakeSurvey = function(req, res) {
+  if (req.isAuthenticated()) {
+    res.render('account/employee_dashboard', {
+    title: 'Employee Dashboard'
+    });
+  }
+};
