@@ -2,24 +2,19 @@ extends ../../app_layout
 
 block content
 
-  .container
-    .row
-      h2(align="center") Organization Dashboard
   .col.s10.offset-s1.m8.offset-m2.l6.offset-l3
-    .row
+    h2(align="center") Organization Dashboard
     .container
       h3(align="left") Results
-      .row
-      .row
-        .col.s4.offset-s5
-          a(href="/current-survey") Current Week
-        .col.s3
-          a(href="/results") Past Weeks
-
+        .row
+          .col.s4.offset-s4
+            a(href="/current-survey") 
+              h5 Current Week
+          .col.s4
+            a(href="/results") 
+              h5 Past Weeks
       .row(align="center")
         img(src="http://mste.illinois.edu/courses/ci330ms/youtsey/BAR2.GIF")
-
-
     .row(align="center") 
       a(class ="btn btn-primary" href="/edit-survey") Edit Survey
     .row(align="center") 
