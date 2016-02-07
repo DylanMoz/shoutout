@@ -462,7 +462,7 @@ exports.getEditQuestion = function(req, res) {
   if (req.isAuthenticated()) {
     res.render('account/org/edit-question', {
     title: 'Edit Question'
-  });
+    });
   }
 };
 
@@ -474,6 +474,18 @@ exports.postEditQuestion = function(req, res) {
   if (req.isAuthenticated()) {
     res.render('account/org/edit-survey', {
     title: 'Edit Survey'
-  });
+    });
   }
 };
+
+/**
+ * GET /edit-survey
+ * Forgot editSurvey page.
+ */
+exports.getEditSurvey = function(req, res) {
+  if (req.isAuthenticated()) {
+    res.render('account/org/edit-survey', {
+    title: 'Edit Survey'
+    });
+  }
+};  

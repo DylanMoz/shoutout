@@ -135,7 +135,7 @@ app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
-app.get('/edit-survey', homeController.getEditSurvey);
+app.get('/edit-survey', userController.getEditSurvey);
 app.get('/org/edit-question', userController.getEditQuestion);
 app.post('/org/edit-question', userController.postEditQuestion);
 
