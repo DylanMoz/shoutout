@@ -135,14 +135,6 @@ app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
-app.get('/edit-survey', userController.getEditSurvey);
-app.get('/org/edit-question', userController.getEditQuestion);
-app.post('/org/edit-question', userController.postEditQuestion);
-app.get('/org/new-question', userController.getNewQuestion);
-app.post('/org/new-question', userController.postNewQuestion);
-app.get('/employee/dashboard', userController.getEmployeeDashboard);
-app.get('/employee/take-survey', userController.getTakeSurvey);
-app.post('/employee/take-survey', userController.postTakeSurvey);
 
 
 
