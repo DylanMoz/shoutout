@@ -461,7 +461,7 @@ exports.postForgot = function(req, res, next) {
 exports.getEditQuestion = function(req, res) {
   if (req.isAuthenticated()) {
     res.render('account/org/edit-question', {
-    title: 'Edit Question'
+      title: 'Edit Question'
     });
   }
 };
@@ -473,7 +473,7 @@ exports.getEditQuestion = function(req, res) {
 exports.postEditQuestion = function(req, res) {
   if (req.isAuthenticated()) {
     res.render('account/org/edit-survey', {
-    title: 'Edit Survey'
+      title: 'Edit Survey'
     });
   }
 };
@@ -485,7 +485,7 @@ exports.postEditQuestion = function(req, res) {
 exports.getEditSurvey = function(req, res) {
   if (req.isAuthenticated()) {
     res.render('account/org/edit-survey', {
-    title: 'Edit Survey'
+      title: 'Edit Survey'
     });
   }
 };  
@@ -497,7 +497,7 @@ exports.getEditSurvey = function(req, res) {
 exports.getNewQuestion = function(req, res) {
   if (req.isAuthenticated()) {
     res.render('account/org/new-question', {
-    title: 'New Question'
+      title: 'New Question'
     });
   }
 };  
@@ -509,7 +509,7 @@ exports.getNewQuestion = function(req, res) {
 exports.postNewQuestion = function(req, res) {
   if (req.isAuthenticated()) {
     res.render('account/org/edit-survey', {
-    title: 'Edit Survey'
+      title: 'Edit Survey'
     });
   }
 };
@@ -521,7 +521,7 @@ exports.postNewQuestion = function(req, res) {
 exports.getTakeSurvey = function(req, res) {
   if (req.isAuthenticated()) {
     res.render('account/employee/take-survey', {
-    title: 'Survey'
+      title: 'Survey'
     });
   }
 };  
@@ -533,7 +533,7 @@ exports.getTakeSurvey = function(req, res) {
 exports.postTakeSurvey = function(req, res) {
   if (req.isAuthenticated()) {
     res.render('account/employee_dashboard', {
-    title: 'Employee Dashboard'
+      title: 'Employee Dashboard'
     });
   }
 };
