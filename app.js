@@ -136,6 +136,8 @@ app.post('/signup', userController.postSignup);
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
 
+
+
 app.get('/current-survey', passportConf.isAuthenticated, userController.getCurrentSurvey);
 app.get('/results', passportConf.isAuthenticated, userController.getResults);
 
