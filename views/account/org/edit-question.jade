@@ -1,0 +1,18 @@
+extends ../../app_layout
+
+block content
+ .col.s10.offset-s1.m8.offset-m2.l6.offset-l3
+    h3 Edit Question
+    .row
+      .card.col.s10
+        h4 Question #
+        .row
+          form.form-horizontal.col.s10(id='edit-question-form', method='POST')
+            input(type='hidden', name='_csrf', value=_csrf)
+            .row
+              .input-field.col.s10
+                input.validate(type='text', name="question", id='question', value = "Previous Question should be in here")
+            .row
+              a(href="/edit-survey")
+                i.fa.fa-times.fa-4x.wow.fadeIn.text-primary(style="color:red")
+              button.btn-large.waves-effect.waves-light(type='submit' align="right") Submit

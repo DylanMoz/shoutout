@@ -1,0 +1,26 @@
+extends ../app_layout
+
+block content
+  .col.s10.offset-s1.m8.offset-m2.l6.offset-l3
+    h2 Sign up
+    h3 =#{organization.name}
+    
+    .row
+      form.form-horizontal.col.s12(id='signup-form', method='POST')
+        input(type='hidden', name='_csrf', value=_csrf)
+        .row
+          .input-field.col.s12
+            input.validate(type='text', name="org_name", id='org_name', autofocus=true)
+            label(for='org_name') Name
+          .input-field.col.s12
+            input.validate(type='email', name="email", id='email', value="#{email}")
+            label(for='email') Email
+          .input-field.col.s12
+            input.validate(type='password', name="password", id='password')
+            label(for='password') Password
+          .input-field.col.s12
+            input.validate(type='password', name="confirmPassword", id='confirmPassword')
+            label(for='confirmPassword') Confirm Password
+          .col.s12.center-align
+            button.btn-large.waves-effect.waves-light(type='submit')
+              | Signup

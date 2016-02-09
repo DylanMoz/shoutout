@@ -1,0 +1,27 @@
+nav
+  .nav-wrapper
+    a.brand-logo(href="/index") 
+      | Shout
+      span Out 
+      i.fa.fa-bullhorn
+    a.button-collapse(href='#', data-activates='slide-out')
+      i.mdi-navigation-menu
+    ul.right.hide-on-med-and-down
+      li
+        a.dropdown-button(href='#!', data-activates='dropdown1')
+          | #{user.employee.name.first}
+          i.mdi-navigation-arrow-drop-down.right
+        ul#dropdown1.dropdown-content
+          li
+            a(href='/employee/dashboard') Dashboard
+          li
+            a(href='/account') Profile
+          li
+            a(href='/logout') Logout
+ul#slide-out.side-nav
+  li
+    a(href='/employee/dashboard') Dashboard
+  li
+    a(href='/employee/survey') Complete Survey
+  li
+    a(href='/logout') Logout
