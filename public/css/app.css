@@ -13830,6 +13830,21 @@ html {
   }
 }
 
+html .brand-logo {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+}
+
+html .brand-logo span {
+  font-weight: 300;
+}
+
+html .brand-logo i {
+  font-size: 24px;
+  position: relative;
+  top: -2px;
+}
+
 html h1, html h2 {
   color: #727E83;
 }
@@ -13848,6 +13863,29 @@ html .brand-logo {
 
 html .side-nav {
   background-color: #F8F8F8;
+}
+
+html .side-nav hr {
+  margin: 0 20px;
+}
+
+html .side-nav .logo {
+  text-align: center;
+  margin-top: 32px;
+  margin-bottom: 80px;
+}
+
+html .side-nav .logo:hover {
+  background-color: transparent;
+}
+
+html .side-nav li, html .side-nav a {
+  line-height: 44px;
+  height: 44px;
+}
+
+html .side-nav li.bold > a {
+  font-weight: bold;
 }
 
 /*# sourceMappingURL=app.css.map */

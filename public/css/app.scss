@@ -18,6 +18,20 @@ html {
     }
   }
 
+  .brand-logo {
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    span {
+      font-weight: 300;
+    }
+
+    i {
+      font-size: 24px;
+      position: relative;
+      top: -2px;
+    }
+  }
+
   h1, h2 {
     color: $custom-grey-blue-3;
   }
@@ -36,6 +50,29 @@ html {
 
   .side-nav {
     background-color: $custom-off-white;
+
+    hr {
+      margin: 0 20px;
+    }
+
+    .logo {
+      text-align: center;
+      margin-top: 32px;
+      margin-bottom: 80px;
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
+
+    li, a {
+      line-height: 44px;
+      height: 44px;
+    }
+
+    li.bold > a {
+      font-weight: bold;
+    }
   }
 
 

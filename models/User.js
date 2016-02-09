@@ -1,16 +1,14 @@
 var bcrypt = require('bcrypt-nodejs');
 var crypto = require('crypto');
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    ObjectId = mongoose.Schema.Types.ObjectId;
 
 var userSchema = new mongoose.Schema({
   email: { type: String, unique: true, lowercase: true },
   password: String,
-  name: String,
-  organization: { type: String }, // TODO foreign key relation
-  employee: { type: String },
+  organization: { type: ObjectId, ref: 'Organization' },
+  employee: { type: ObjectId, ref: 'Employee' },
 
-  facebook: String,
-  twitter: String,
   google: String,
   tokens: Array,
 
@@ -46,6 +44,14 @@ userSchema.pre('save', function(next) {
       next();
     });
   });
+});
+
+userSchema.pre('validate', function(next) {
+    if (!this.employee && !this.organization) {
+        next(Error('User must either have an associated Employee or Organization document'));
+    } else {
+        next();
+    }
 });
 
 /**

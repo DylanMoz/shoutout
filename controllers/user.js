@@ -4,6 +4,7 @@ var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var passport = require('passport');
 var User = require('../models/User');
+var Organization = require('../models/Organization');
 
 /**
  * GET /login
@@ -17,74 +18,6 @@ exports.getLogin = function(req, res) {
     title: 'Login'
   });
 };
-
-exports.getDashboard = function(req, res) {
-  if (!req.user) {
-    return res.redirect('/');
-  }
-
-  if (req.user.type === 'EMPLOYEE') {
-    res.render('account/employee_dashboard', {
-      title: 'Dashboard'
-    });
-  } else {
-    res.render('account/org_dashboard', {
-      title: 'Dashboard'
-    });
-  }
-};
-
-exports.getOrgDashboard = function(req, res) {
-  if (!req.user) {
-    return res.redirect('/');
-  }
-
-  res.render('account/org_dashboard', {
-    title: 'Dashboard'
-  });
-
-};
-
-exports.getEmployeeDashboard = function(req, res) {
-  if (!req.user) {
-    return res.redirect('/');
-  }
-
-  res.render('account/employee_dashboard', {
-    title: 'Dashboard'
-  });
-};
-
-exports.getCurrentSurvey = function(req, res) {
-  if (!req.user) {
-    return res.redirect('/');
-  }
-
-  res.render('account/org/current-survey', {
-    title: 'Current Survey'
-  });
-};
-
-exports.getResults = function(req, res) {
-  if (!req.user) {
-    return res.redirect('/');
-  }
-
-  res.render('account/org/results', {
-    title: 'Results'
-  });
-};
-
-exports.takeSurvey = function(req, res) {
-  if (!req.user) {
-    return res.redirect('/');
-  }
-
-  res.render('account/employee/survey', {
-    title: 'Daily Survey'
-  });
-};
-
 
 /**
  * POST /login
@@ -109,6 +42,10 @@ exports.postLogin = function(req, res, next) {
       req.flash('errors', { msg: info.message });
       return res.redirect('/login');
     }
+    console.log('Logging in..', user);
+    if (user.employee) user.populate('employee');
+    if (user.organization) user.populate('organization');
+    console.log('Called populate:', user);
     req.logIn(user, function(err) {
       if (err) {
         return next(err);
@@ -144,11 +81,12 @@ exports.getSignup = function(req, res) {
 
 /**
  * POST /signup
- * Create a new local account.
+ * Create a new local Organization account.
  */
 exports.postSignup = function(req, res, next) {
   req.assert('org_name', 'Name cannot be blank').notEmpty();
   req.assert('email', 'Email is not valid').isEmail();
+  req.assert('num_employees', 'Number of employees cannot be blank').notEmpty();
   req.assert('password', 'Password must be at least 4 characters long').len(4);
   req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
 
@@ -159,8 +97,12 @@ exports.postSignup = function(req, res, next) {
     return res.redirect('/signup');
   }
 
-  var user = new User({
+  var org = new Organization({
     name: req.body.org_name,
+    num_employees: req.body.num_employees
+  });
+
+  var user = new User({
     email: req.body.email,
     password: req.body.password
   });
@@ -170,15 +112,28 @@ exports.postSignup = function(req, res, next) {
       req.flash('errors', { msg: 'Account with that email address already exists.' });
       return res.redirect('/signup');
     }
-    user.save(function(err) {
+
+    org.save(function(err, organization) {
       if (err) {
         return next(err);
       }
-      req.logIn(user, function(err) {
+      console.log('org saved: ', organization);
+      user.organization = organization._id;
+      user.save(function(err, u) {
         if (err) {
           return next(err);
         }
-        res.redirect('/');
+        req.logIn(user, function(err) {
+          if (err) {
+            return next(err);
+          }
+          console.log('Org User created! User: ', u);
+          console.log('org: ', organization);
+          if (user.employee) user.populate('employee');
+          if (user.organization) user.populate('organization');
+          console.log('Called populate:', user);
+          res.redirect('/');
+        });
       });
     });
   });

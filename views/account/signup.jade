@@ -9,17 +9,25 @@ block content
         input(type='hidden', name='_csrf', value=_csrf)
         .row
           .input-field.col.s12
-            input.validate(type='text', name="org_name", id='org_name', autofocus=true)
+            input(type='text', name="org_name", id='org_name', autofocus=true)
             label(for='org_name') Organization Name
           .input-field.col.s12
-            input.validate(type='email', name="email", id='email')
+            input(type='email', name="email", id='email')
             label(for='email') Email
           .input-field.col.s12
-            input.validate(type='password', name="password", id='password')
+            input(type='password', name="password", id='password')
             label(for='password') Password
           .input-field.col.s12
-            input.validate(type='password', name="confirmPassword", id='confirmPassword')
+            input(type='password', name="confirmPassword", id='confirmPassword')
             label(for='confirmPassword') Confirm Password
+          .input-field.col.s12
+            select(name="num_employees")
+              option(value="", disabled, selected) Choose your option
+              option(value="1-50") 1-50
+              option(value="51-200") 51-200
+              option(value="201-1000") 201-1000
+              option(value="1000+") 1000+
+            label Number of Employees
           .col.s12.center-align
             button.btn-large.waves-effect.waves-light(type='submit')
               | Signup
