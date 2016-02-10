@@ -40,12 +40,37 @@ router.get('/results/:id', function(req, res) {
 
 /* Retrieve specific survey to edit */
 router.get('/:id', function(req, res) {
-  res.render('account/org/edit-survey');
+  res.render('account/org/edit-survey', {
+    "myVar1": 'I AM A STRING!',
+    "myVar2": "BUT NOT _THE_ STRING!",
+  });
+});
+
+/* Retrieve page for creation of new question */
+router.get('/new-question/:id', function(req, res) {
+  res.render('account/org/new-question');
 });
 
 /* Save specific survey */
 router.put('/:id', function(req, res) {
   res.render();
 });
+
+/* Save specific question */
+router.post('/question/:id', function(req, res) {
+  res.render('account/org/edit-survey',{
+    "myVar1": 'I AM A STRING!',
+    "myVar2": "BUT NOT _THE_ STRING!",
+  });
+});
+
+/* Save specific question */
+router.post('/new-question/:id', function(req, res) {
+  res.render('account/org/edit-survey',{
+    "myVar1": 'I AM A STRING!',
+    "myVar2": "BUT NOT _THE_ STRING!",
+  });
+});
+
 
 module.exports = router;
