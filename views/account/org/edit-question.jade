@@ -5,13 +5,12 @@ block content
     h3 Edit Question
     .row
       .card.col.s10
-        h4 Question #
         .row
           form.form-horizontal.col.s10(id='/question/:id', method='post')
             input(type='hidden', name='_csrf', value=_csrf)
             .row
               .input-field.col.s10
-                input.validate(type='text', name="question", id='question', value = "Previous Question should be in here")
+                input.validate(type='text', name="question", id='question', value = question)
             .row
               a(href="/organization/survey/56b97a0ed46c42082c4228c9")
                 i.fa.fa-times.fa-4x.wow.fadeIn.text-primary(style="color:red")
