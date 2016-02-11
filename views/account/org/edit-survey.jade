@@ -4,29 +4,21 @@ extends ../../app_layout
 block content
   .col.s10.offset-s1.m8.offset-m2.l6.offset-l3
     h3 Edit Survey
-      .card.col.s10
-        h4 #{myVar1} 
-        a(href="/organization/survey/question/56b97a0ed46c42082c4228c9")
-          i.fa.fa-pencil-square-o.fa-2x.wow.fadeIn.text-primary
-      .card.col.s10
-        h4 2. This is question 2
-        a(href="/organization/survey/question/56b97a0ed46c42082c4228c9")
-          i.fa.fa-pencil-square-o.fa-2x.wow.fadeIn.text-primary
-
-      .card.col.s10
-        h4 3. This is question 3
-        a(href="/organization/survey/question/56b97a0ed46c42082c4228c9")
-          i.fa.fa-pencil-square-o.fa-2x.wow.fadeIn.text-primary
-      .card.col.s10
-        h4 4. This is question 4
-        a(href="/organization/survey/question/56b97a0ed46c42082c4228c9")
-          i.fa.fa-pencil-square-o.fa-2x.wow.fadeIn.text-primary
+      each thing in array
+        .card.col.s10
+          h4= thing.myVar 
+          a(href="/organization/survey/question/56b97a0ed46c42082c4228c9")
+            i.fa.fa-pencil-square-o.fa-2x.wow.fadeIn.text-primary
+      
 
       .card.col.s10
         h4 Add New Question
           input.validate(type='text', name="new_question", id='new_question', autofocus=false)
         a(href="/organization/survey/new-question/56b97a0ed46c42082c4228c9") 
           i.fa.fa-plus-circle.fa-2x.wow.fadeIn.text-primary(style="color:green")
+
+    .row(align="center") 
+      a(class ="btn btn-primary" href='/employee/dashboard') Done
 
 
 

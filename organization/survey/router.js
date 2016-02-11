@@ -40,10 +40,8 @@ router.get('/results/:id', function(req, res) {
 
 /* Retrieve specific survey to edit */
 router.get('/:id', function(req, res) {
-  res.render('account/org/edit-survey', {
-    "myVar1": 'I AM A STRING!',
-    "myVar2": "BUT NOT _THE_ STRING!",
-  });
+  var dummy = require('./dummy.json');
+  res.render('account/org/edit-survey', dummy);
 });
 
 /* Retrieve page for creation of new question */
@@ -58,19 +56,14 @@ router.put('/:id', function(req, res) {
 
 /* Save specific question */
 router.post('/question/:id', function(req, res) {
-  res.render('account/org/edit-survey',{
-    "myVar1": 'I AM A STRING!',
-    "myVar2": "BUT NOT _THE_ STRING!",
-  });
+  var dummy = require('./dummy.json');
+  res.render('account/org/edit-survey', dummy);
 });
 
 /* Save specific question */
 router.post('/new-question/:id', function(req, res) {
-  res.render('account/org/edit-survey',{
-    "myVar1": 'I AM A STRING!',
-    "myVar2": "BUT NOT _THE_ STRING!",
-  });
-});
+  var dummy = require('./dummy.json');
+  res.render('account/org/edit-survey', dummy);});
 
 
 module.exports = router;
