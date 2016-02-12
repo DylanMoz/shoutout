@@ -1,31 +1,32 @@
 extends ../../app_layout
 
+-var next
+
 block content
   .col.s10.offset-s1.m8.offset-m2.l6.offset-l3
     h3 Edit Survey
-      .card.col.s10
-        h4 1. This is question 1 
-        a(href="/org/edit-question")
-          i.fa.fa-pencil-square-o.fa-2x.wow.fadeIn.text-primary
-      .card.col.s10
-        h4 2. This is question 2
-        a(href="/org/edit-question")
-          i.fa.fa-pencil-square-o.fa-2x.wow.fadeIn.text-primary
+      each thing in array
+        .card.col.s10
+          -var str1 = thing.number + ". " + thing.question;
+          h4= str1
+          -var str2 = "/organization/survey/question/"+thing.id; 
+          a(href=str2)
+            i.fa.fa-pencil-square-o.fa-2x.wow.fadeIn.text-primary
+          -var str3 = "/organization/survey/delete-question/"+thing.id; 
+          a(href=str3)
+            i.fa.fa-trash-o.fa-2x.wow.fadeIn.text-primary
 
-      .card.col.s10
-        h4 3. This is question 3
-        a(href="/org/edit-question")
-          i.fa.fa-pencil-square-o.fa-2x.wow.fadeIn.text-primary
-      .card.col.s10
-        h4 4. This is question 4
-        a(href="/org/edit-question")
-          i.fa.fa-pencil-square-o.fa-2x.wow.fadeIn.text-primary
+        -next= thing.number;
 
+      -var str4 = "/organization/survey/new-question/" + next;
       .card.col.s10
         h4 Add New Question
           input.validate(type='text', name="new_question", id='new_question', autofocus=false)
-        a(href="/org/new-question") 
+        a(href=str4) 
           i.fa.fa-plus-circle.fa-2x.wow.fadeIn.text-primary(style="color:green")
+
+      .row(align="center") 
+        a(class ="btn btn-primary" href='/employee/dashboard') Done
 
 
 
