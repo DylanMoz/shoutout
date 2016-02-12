@@ -142,6 +142,8 @@ app.post('/signup', userController.postSignup);
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
 
+app.use('/docs', function(req, res) { res.sendfile('docs/index.html')})
+
 app.use('/employee',
   passportConf.isAuthenticated,
   passportConf.isEmployee,

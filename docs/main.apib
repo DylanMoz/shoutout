@@ -1,0 +1,66 @@
+FORMAT: 1A
+HOST: http://shoutoutbeta.herokuapp.com
+
+# shoutout
+
+Simple, rough-around-the-edges API for shoutout (not really, more like the routes/sitemap for the website)
+
+# Group Organization
+
+## Dashboard [/organization/dashboard]
+
+### Retrieve Organization Dashboard [GET]
+
++ Response 200 (application/json)
+
+        []
+
+## List of Surveys [/organization/survey]
+
+### Retrieve All Surveys of an Organization [GET]
+
++ Response 200 (application/json)
+
+        []
+
+## Survey [/organization/survey/{survey_id}]
+### Retrieve Survey [GET]
+
++ Response 200 (application/json)
+
+        []
+
+### Update Survey [PUT]
+
++ Request (application/json)
+
+        {
+            "questions": [...],
+        }
+
++ Response 200 (application/json)
+
+        { "success": true }
+
+## All Survey Results [/organization/survey/results]
+### Retrieve [GET]
+
++ Response 200 (application/json)
+
+        { }
+
+## Current Survey Results [/organization/survey/results/current]
+### Retrieve [GET]
+
++ Response 200 (application/json)
+
+        { }
+
+## Survey Results [/organization/survey/results/{survey_id}]
+### Retrieve [GET]
+
++ Response 200 (application/json)
+
+        { }
+
+# Group Employee
