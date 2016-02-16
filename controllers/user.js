@@ -5,6 +5,7 @@ var nodemailer = require('nodemailer');
 var passport = require('passport');
 var User = require('../models/User');
 var Organization = require('../models/Organization');
+var Employee = require('../models/Employee');
 
 /**
  * GET /login
@@ -51,6 +52,7 @@ exports.postLogin = function(req, res, next) {
         return next(err);
       }
       req.flash('success', { msg: 'Success! You are logged in.' });
+      console.log('redirecting to: '+ (req.session.returnTo || '/'));
       res.redirect(req.session.returnTo || '/');
     });
   })(req, res, next);
@@ -80,6 +82,73 @@ exports.getSignup = function(req, res) {
 };
 
 /**
+ * GET /signup/:id
+ * Employee Signup
+ */
+exports.getEmployeeSignup = function(req, res) {
+  if (req.user) {
+    req.flash('info', {msg: 'You are already signed in!'});
+    return res.redirect('/');
+  }
+
+  Organization.findById(req.params.id, function(err, org) {
+    if (err) res.send(err);
+
+    res.render('account/employee-signup', {
+      title: 'Create Account',
+      organization: org
+    });
+  });
+};
+
+/**
+ * POST /signup/:id
+ * Employee Signup
+ */
+exports.postEmployeeSignup = function(req, res) {
+  if (req.user) {
+    req.flash('info', {msg: 'You are already signed in!'});
+    return res.redirect('/');
+  }
+
+  req.assert('fname', 'Your first name cannot be empty').notEmpty();
+  req.assert('lname', 'Your first name cannot be empty').notEmpty();
+  req.assert('email', 'You must have a valid email.').notEmpty();
+  req.assert('password', 'Password must be at least 4 characters long').len(4);
+  req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
+
+  Organization.findById(req.params.id, function(err, org) {
+    if (err) res.send(err);
+
+    var employee = new Employee();
+    employee.name.first = req.body.fname;
+    employee.name.last = req.body.lname;
+    employee.organization = req.params.id;
+
+    employee.save(function(err, emp) {
+      if (err) return res.send(err);
+
+      var user = new User();
+      user.email = req.body.email;
+      user.password = req.body.password;
+      user.employee = emp._id;
+
+      user.save(function(err, u) {
+        if (err) res.send(err);
+
+        req.logIn(u, function(err) {
+          if (err) return res.send(err);
+          console.log('Employee User created! User: ', u);
+          console.log('emp: ', emp);
+          res.redirect('/');
+        });
+      });
+    });
+  });
+
+};
+
+/**
  * POST /signup
  * Create a new local Organization account.
  */
@@ -101,6 +170,14 @@ exports.postSignup = function(req, res, next) {
     name: req.body.org_name,
     num_employees: req.body.num_employees
   });
+
+  /*
+  var questions = [];
+  var defaultQuestions = require('../models/defaultQuestions');
+  var survey = new Survey({
+    questions: questions
+  });
+  */
 
   var user = new User({
     email: req.body.email,
@@ -408,4 +485,3 @@ exports.postForgot = function(req, res, next) {
     res.redirect('/forgot');
   });
 };
-

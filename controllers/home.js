@@ -3,6 +3,7 @@
  * Home page.
  */
 exports.index = function(req, res) {
+  console.log('home controller index');
   if (req.user && req.user.organization) {
     res.redirect('/organization/dashboard');
   } else if (req.user && req.user.employee) {
@@ -17,6 +18,3 @@ exports.getIndex = function(req, res) {
     title: 'Home'
   });
 };
-
-
-

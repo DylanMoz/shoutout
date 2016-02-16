@@ -31,7 +31,7 @@ var _ = require('lodash');
 require('./models/Employee');
 require('./models/Organization');
 require('./models/User');
-require('./models/Question');
+require('./models/Survey');
 
 //var exphbs = require("express-handlebars");
   //hbs = exphbs.create(config.hbs);
@@ -48,7 +48,6 @@ console.log('Var decl and env finished');
  */
 var homeController = require('./controllers/home');
 var userController = require('./controllers/user');
-var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
 
 /**
@@ -106,20 +105,17 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+/*
 app.use(lusca({
   csrf: true,
   xframe: 'SAMEORIGIN',
-  xssProtection: true
+  xssProtection: true,
+  angular: true
 }));
+*/
 app.use(function(req, res, next) {
   res.locals.user = req.user;
   res.locals.path = req.path;
-  next();
-});
-app.use(function(req, res, next) {
-  if (/api/i.test(req.path)) {
-    req.session.returnTo = req.path;
-  }
   next();
 });
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
@@ -139,31 +135,51 @@ app.get('/reset/:token', userController.getReset);
 app.post('/reset/:token', userController.postReset);
 app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
+app.get('/signup/:id', userController.getEmployeeSignup);
+app.post('/signup/:id', userController.postEmployeeSignup);
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
 
 app.use('/docs', function(req, res) { res.sendfile('docs/index.html')})
 
-app.use('/employee',
+app.get('/partials/*', function(req,res) {
+  console.log('partial request: ' + req.params[0]);
+  res.render('partials/' + req.params[0]);
+});
+
+/* Starting Application Pages */
+app.get('/employee*',
   passportConf.isAuthenticated,
   passportConf.isEmployee,
-  require('./employee/router'));
+  function(req, res) {
+    res.render('employee_app');
+  }
+);
 
-app.use('/organization',
+app.get('/organization*',
   passportConf.isAuthenticated,
   passportConf.isOrganization,
-  require('./organization/router'));
+  function(req, res) {
+    res.render('organization_app');
+  }
+);
 
+/* API */
+app.use('/api/user',
+  passportConf.isAuthenticated,
+  require('./api/user/routes'));
+
+app.use('/api/survey',
+  passportConf.isAuthenticated,
+  require('./api/survey/routes'));
+
+
+/* deprecated */
 app.get('/account', passportConf.isAuthenticated, userController.getAccount);
 app.post('/account/profile', passportConf.isAuthenticated, userController.postUpdateProfile);
 app.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);
 app.post('/account/delete', passportConf.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
-
-/**
- * API examples routes.
- */
-app.get('/api', apiController.getApi);
 
 /**
  * OAuth authentication routes. (Sign in)

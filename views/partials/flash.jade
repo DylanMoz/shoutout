@@ -1,20 +1,18 @@
-
-
 if messages.errors
   for error in messages.errors
     script.
       document.addEventListener("DOMContentLoaded", function(event) { 
-        Materialize.toast('#{error.msg}', 8000, 'rounded')
+        Materialize.toast('#{error.msg}', 8000)
       });
 if messages.info
   for info in messages.info
     script.
       document.addEventListener("DOMContentLoaded", function(event) { 
-        Materialize.toast('#{info.msg}', 8000, 'rounded')
+        Materialize.toast('#{info.msg}', 8000)
       });
 if messages.success
     for success in messages.success
       script.
         document.addEventListener("DOMContentLoaded", function(event) { 
-          Materialize.toast('#{success.msg}', 8000, 'rounded')
+          Materialize.toast('#{success.msg}', 8000)
         });

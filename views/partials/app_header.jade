@@ -1,25 +1,18 @@
-
-if user
-  if user.employee
-    include ../account/employee/header
-  else
-    include ../account/org/header
-else  
-  nav
-    .nav-wrapper
-      a.brand-logo(href="/") 
-        | Shout
-        span Out 
-        i.fa.fa-bullhorn
-      a.button-collapse(href='#', data-activates='slide-out')
-        i.mdi-navigation-menu
-      ul.right.hide-on-med-and-down
-        li
-          a(href='/login') Log In
-        li
-          a(href='/signup') Sign Up
-  ul#slide-out.side-nav
-    li
-      a(href='/login') Log In
-    li
-      a(href='/signup') Sign up
+nav
+  .nav-wrapper
+    a.brand-logo(href="/") 
+      | Shout
+      span Out 
+      i.fa.fa-bullhorn
+    a.button-collapse(href='#', data-activates='slide-out')
+      i.mdi-navigation-menu
+    ul.right.hide-on-med-and-down
+      li
+        a(href='/login') Log In
+      li
+        a(href='/signup') Sign Up
+ul#slide-out.side-nav
+  li
+    a(href='/login') Log In
+  li
+    a(href='/signup') Sign up

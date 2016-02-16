@@ -1,0 +1,28 @@
+extends ../app_layout
+
+block content
+  .col.s10.offset-s1.m8.offset-m2.l6.offset-l3
+    h2 Employee Signup
+    h3 #{ organization.name }
+    .row
+      form.form-horizontal.col.s12(id='signup-form', method='POST')
+        input(type='hidden', name='_csrf', value=_csrf)
+        .row
+          .input-field.col.s6
+            input(type='text', name="fname", id='fname', autofocus=true)
+            label(for='fname') First Name
+          .input-field.col.s6
+            input(type='text', name="lname", id='lname', autofocus=true)
+            label(for='lname') Last Name
+          .input-field.col.s12
+            input(type='email', name="email", id='email')
+            label(for='email') Email
+          .input-field.col.s12
+            input(type='password', name="password", id='password')
+            label(for='password') Password
+          .input-field.col.s12
+            input(type='password', name="confirmPassword", id='confirmPassword')
+            label(for='confirmPassword') Confirm Password
+          .col.s12.center-align
+            button.btn-large.waves-effect.waves-light(type='submit')
+              | Signup

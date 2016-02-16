@@ -16,6 +16,8 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
+  console.log('DESERIALIZE USER');
+
   User
   .findById(id)
   .populate('employee organization')
@@ -139,7 +141,12 @@ exports.isEmployee = function(req, res, next) {
   if(req.user.employee) {
     return next();
   }
-  res.redirect('/')
+
+  if(req.accpets('json')) {
+    res.status(401).end();
+  } else {
+    res.redirect('/');
+  }
 }
 
 exports.isOrganization = function(req, res, next) {
@@ -147,5 +154,10 @@ exports.isOrganization = function(req, res, next) {
   if(req.user.organization) {
     return next();
   }
-  res.redirect('/')
+
+  if(req.accpets('json')) {
+    res.status(401).end();
+  } else {
+    res.redirect('/');
+  }
 }

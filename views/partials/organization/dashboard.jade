@@ -1,0 +1,18 @@
+.col.s10.offset-s1.m8.offset-m2.l6.offset-l3
+  h2(align="center") Organization Dashboard
+  h5 Invite your employees: 
+    a(href="/signup/{{user.organization['_id']}}")
+      | {{ url + '/signup/' + user.organization['_id'] }}
+  .row
+    .col.s4.offset-s4
+      a(href="survey/current") 
+        h5 Current Week
+    .col.s4
+      a(href="survey/results") 
+        h5 Analyze
+  .row(align="center")
+    img(src="http://mste.illinois.edu/courses/ci330ms/youtsey/BAR2.GIF")
+  .row(align="center") 
+    a(class ="btn btn-primary" href="manage/draft") Manage Survey Draft
+  .row(align="center") 
+    a(class ="btn btn-primary" href='/employee/dashboard') Employee Dashboard

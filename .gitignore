@@ -13,6 +13,8 @@ logs
 results
 tmp
 
+/public/static
+
 # API keys and secrets
 .env
 

@@ -13819,15 +13819,42 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   padding-left: 5px;
 }
 
+.manage-survey .card-title i {
+  color: #A1A8AC;
+  cursor: pointer;
+}
+
+.manage-survey .card-title {
+  font-size: 20px;
+}
+
+.manage-survey .card {
+  margin-top: 40px;
+}
+
+.manage-survey .card ~ .card {
+  margin-top: 20px;
+}
+
 html {
   background-color: #F8F8F8;
-  color: #A1A8AC;
+  color: #232A2F;
 }
 
 @media only screen and (min-width: 993px) {
   html .container {
     width: 80%;
   }
+}
+
+html .container {
+  margin-top: 20px;
+}
+
+html .progress {
+  margin: 0;
+  background-color: transparent;
+  height: 5px;
 }
 
 html .brand-logo {
@@ -13886,6 +13913,34 @@ html .side-nav li, html .side-nav a {
 
 html .side-nav li.bold > a {
   font-weight: bold;
+}
+
+html .input-field:not(.col) label {
+  left: 0;
+}
+
+html .bottom-sheet .model-content {
+  padding-bottom: 0;
+}
+
+html .bottom-sheet .modal-footer {
+  margin-bottom: 20px;
+}
+
+html .modal.bottom-sheet {
+  max-height: 50%;
+}
+
+html .toast-success {
+  background-color: #74D8C9;
+}
+
+html .toast-error {
+  background-color: #F57566;
+}
+
+html .toast-info {
+  background-color: #36BFF7;
 }
 
 /*# sourceMappingURL=app.css.map */

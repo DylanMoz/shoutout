@@ -1,0 +1,66 @@
+.col.s12.manage-survey
+  h3 Edit Survey
+  a.btn.waves-effect.waves-light(href="#addQuestion", data-modal) Add Question
+  #addQuestion.modal.bottom-sheet
+    .modal-content
+      h4 Add Question
+      form
+        .row
+          .col.s12(data-input-field)
+            input(type='text', name="name", id='name', autofocus=true, data-ng-model="form.name")
+            label(for='name') Question
+          .col.s12(data-input-field)
+            select(name="type", data-material-select, data-ng-model="form.type")
+              option(data-ng-repeat="option in questionTypes", data-ng-disabled="!option.value", data-ng-selected="!option.value", value="{{option.value}}") 
+                | {{ option.name }}
+              //
+                option(value="slider") Slider
+                option(value="input") Text
+                option(value="checkbox") Checkbox
+                option(value="radio") Radio
+                option(value="select") Select
+                option(value="multi-select") Multi-Select
+                
+            label Question Type
+    .modal-footer
+      a.btn-flat.modal-action.modal-close.waves-effect.waves-light(data-ng-click="addQuestion(form)") Add
+      a.btn-flat.modal-action.modal-close.waves-effect.waves-light Cancel
+      
+  .card(data-ng-repeat="question in survey.questions")
+    .card-content
+      span.card-title {{ question.name }}
+        i.right.fa.fa-ellipsis-v.dropdown-button(href='#' data-activates='editQuestion_{{$index}}' dropdown)
+        ul.dropdown-content(id="editQuestion_{{$index}}")
+          li
+            a(href="#editQuestion", data-modal, data-ng-click="autoFillEditForm(question)") Edit
+          li
+            a(data-ng-click="deleteQuestion(question)") Delete
+      div.input-field
+        input(type="text", length="150")
+        label Answer
+        
+  #editQuestion.modal.bottom-sheet
+    .modal-content
+      h4 Edit Question
+      form
+        .row
+          .col.s12(data-input-field)
+            input(type='text', name="name", id='name', autofocus=true, data-ng-model="editForm.name")
+            label(for='name') Question
+          .col.s12(data-input-field)
+            select(name="type", data-material-select, data-ng-model="editForm.type")
+              option(data-ng-repeat="option in questionTypes", data-ng-disabled="!option.value", data-ng-selected="!option.value", value="{{option.value}}") 
+                | {{ option.name }}
+              //
+                option(value="slider") Slider
+                option(value="input") Text
+                option(value="checkbox") Checkbox
+                option(value="radio") Radio
+                option(value="select") Select
+                option(value="multi-select") Multi-Select
+                
+            label Question Type
+    .modal-footer
+      a.btn-flat.modal-action.modal-close.waves-effect.waves-light(data-ng-click="editQuestion(editForm)") Save
+      a.btn-flat.modal-action.modal-close.waves-effect.waves-light(data-ng-click="editForm = {};") Cancel
+      

@@ -1,0 +1,6 @@
+.col.s12
+  .row(data-ng-repeat="question in questions")
+    label {{ question.title }}
+    div.input-field
+      input(type="text", data-ng-model="question.response")
+      label Response

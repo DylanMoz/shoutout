@@ -1,0 +1,18 @@
+.manage-survey {
+  .card-title i {
+    color: $custom-grey-blue-2;
+    cursor: pointer;
+  }
+
+  .card-title {
+    font-size: 20px;
+  }
+
+  .card {
+    margin-top: 40px;
+  }
+
+  .card ~ .card {
+    margin-top: 20px;
+  }
+}
