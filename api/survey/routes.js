@@ -3,6 +3,9 @@ var express = require('express'),
     _ = require('lodash'),
     passport = require('../../config/passport'),
     Survey = require('../../models/Survey');
+    Organization = require('../../models/Organization');
+    Response = require('../../models/Response');
+
 
 router.use('/:surveyId/question/', require('./question/routes'));
 
@@ -64,17 +67,23 @@ router.get('/draft',
 router.post('/publish/draft',
   passport.isOrganization,
   function(req, res) {
-    req.assert('draft._id', 'Draft must have an _id').notEmpty();
+    if (!req.user.organization.draft_survey)
+      return res.status(400).send("Organization does not have a draft");
+
 
     var errors = req.validationErrors();
     if (errors) return res.status(400).json(errors);
 
-    Survey.findById(req.body.draft._id, function(err, dbDraft) {
+    Survey.findById(req.user.organization.draft_survey, function(err, dbDraft) {
+      if(err)
+        return res.status(400).send(err);
+
       if(dbDraft.state != Survey.State().DRAFT)
         return res.status(400).json({ error: "Cannot publish a non-draft survey." });
 
       dbDraft.state = Survey.State().LOCKED;
-      req.user.organization.current_survey = draft._id;
+      req.user.organization.draft_survey = null;
+      req.user.organization.current_survey = dbDraft._id;
 
       req.user.organization.save(function(err) {
         if (err) return res.send(err);
@@ -88,5 +97,71 @@ router.post('/publish/draft',
     });
   }
 );
+
+router.get('/current', function(req, res) {
+  if (req.user.organization) {
+   if (!req.user.organization.current_survey)
+      return res.status(400).send("Organization does not have a current survey");
+
+    var errors = req.validationErrors();
+    if (errors) return res.status(400).json(errors);
+
+    Survey.findById(req.user.organization.current_survey, function(err, dbSurvey) {
+      if(err)
+        return res.status(400).send(err);
+
+      if(dbSurvey.state != Survey.State().LOCKED)
+        return res.status(400).json({ error: "Current survey is a draft" });
+
+      return res.json(dbSurvey);
+    });  
+  } else {
+    Organization.findById(req.user.employee.organization, function(err, dbOrganization) {
+      if (err)
+        return res.status(400).send(err);
+
+     if (!dbOrganization.current_survey)
+        return res.status(400).send("Organization does not have a current survey");
+
+      var errors = req.validationErrors();
+      if (errors) return res.status(400).json(errors);
+
+      Survey.findById(dbOrganization.current_survey, function(err, dbSurvey) {
+        if(err)
+          return res.status(400).send(err);
+
+        if(dbSurvey.state != Survey.State().LOCKED)
+          return res.status(400).json({ error: "Current survey is a draft" });
+
+        return res.json(dbSurvey);
+      });        
+    })
+ 
+
+  }
+});
+
+router.post("/submit", passport.isEmployee, function(req, res) {
+  var survey = req.body;
+  var response = new Response();
+  response.survey = survey._id;
+  response.employee = req.user.employee;
+  response.answers = survey.questions;
+  response.save(function(err, dbResponse) {
+    if (err) return res.status(400).send(err);
+
+    return res.json({});
+  });
+});
+
+router.get("/results", passport.isOrganization, function(req, res) {
+  if (!req.user.organization.current_survey) {
+    return res.status(400).send("Organization does not have a current survey")
+  }
+  Response.find({survey: req.user.organization.current_survey}, function(err, results) {
+    if (err) return res.status(400).send(err);
+    return res.json(results);
+  });
+});
 
 module.exports = router;

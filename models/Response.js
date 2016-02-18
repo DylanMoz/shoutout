@@ -3,8 +3,13 @@ var mongoose = require('mongoose'),
 
 var schema = new mongoose.Schema({
   survey: { type: ObjectId, ref: 'Survey', required: true },
-  question: { type: ObjectId, required: true, index: true },
-  value: {}
+  employee: { type: ObjectId, ref: 'Employee', required: true },
+  answers: [{
+  	_id: String,
+  	name: String,
+  	response: String
+  }],
+  submitted: Date,
 });
 
 module.exports = mongoose.model('Response', schema);

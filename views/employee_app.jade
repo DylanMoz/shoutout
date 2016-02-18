@@ -35,6 +35,8 @@ html(class=htmlClass, data-ng-app="ShoutOut.Employee")
                   a(href='survey') Survey
                 li
                   a(href='/logout') Logout
+        .progress(data-ng-if="loading")
+          .indeterminate
       ul#slide-out.side-nav
         li.logo: a(href="/"): i.fa.fa-bullhorn.fa-5x
         hr

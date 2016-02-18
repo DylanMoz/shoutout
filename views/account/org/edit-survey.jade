@@ -10,7 +10,10 @@ block content
           -var str1 = thing.number + ". " + thing.question;
           h4= str1
           -var str2 = "/organization/survey/question/"+thing.id; 
-          a(href=str2)
+
+
+
+          a(href=str2)            
             i.fa.fa-pencil-square-o.fa-2x.wow.fadeIn.text-primary
           -var str3 = "/organization/survey/delete-question/"+thing.id; 
           a(href=str3)
@@ -27,6 +30,10 @@ block content
 
       .row(align="center") 
         a(class ="btn btn-primary" href='/employee/dashboard') Done
+        input(type='radio', name="gender_filter", value="1", checked=gender=="male")
+  form(action="#")
+    p.range-field
+      <input type="range" id="test5" min="0" max="100" />
 
 
 
