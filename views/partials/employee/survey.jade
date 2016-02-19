@@ -1,6 +1,8 @@
 .col.s12
-  .row(data-ng-repeat="question in questions")
-    label {{ question.title }}
-    div.input-field
-      input(type="text", data-ng-model="question.response")
+  .row(data-ng-repeat="question in survey.questions")
+    label {{ question.name }}
+
+    .range-field
+      input(type="range" id="question_{{$index}}" min="1" max="10", value="1")
       label Response
+  a.btn(data-ng-click="submit()") Submit

@@ -57,10 +57,15 @@ html(class=htmlClass, data-ng-app="ShoutOut.Organization")
     include partials/footer
 
     script(src='https://code.jquery.com/jquery-2.2.0.min.js')
+    script(src="https://www.gstatic.com/charts/loader.js")
     script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js')
     script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js')
     script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-route.js')
     script(src='/js/lib/angular-materialize.min.js')
+    |    <script type="text/javascript">
+    |      // Load the Visualization API and the corechart package.
+    |      google.charts.load('current', {'packages':['corechart']});
+    |    </script>
     
     script(src='/js/shared/module.js')
     script(src='/js/organization/module.js')

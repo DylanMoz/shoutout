@@ -37,8 +37,20 @@ angular.module('ShoutOut.Shared.Services')
         return $http.get('/api/survey/draft');
       },
 
-      publishDraft: function(draft) {
+      publish: function(draft) {
         return $http.post('/api/survey/publish/draft', draft);
+      },
+
+      getCurrentSurvey: function() {
+        return $http.get('/api/survey/current');
+      },
+
+      submitSurvey: function(survey) {
+        return $http.post('/api/survey/submit', survey);
+      },
+
+      getSurveyResults: function() {
+        return $http.get('/api/survey/results');
       }
     }
   }]
