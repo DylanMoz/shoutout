@@ -47,12 +47,34 @@ angular.module('ShoutOut.Employee.Controllers', [])
         toastService.error('Unable to retrieve survey draft!!');
       });
 
+    $scope.selectTypes = [
+      {
+        name: 'Select an answer',
+      },
+      {
+        name: 'Satisfied',
+        value: '1'
+      },
+      {
+        name: 'Not Applicable',
+        value: '2'
+      },
+      {
+        name: 'Dissatisfied',
+        value: '3'
+      }
+    ];
+
     $scope.submit = function() {
       var question = $("#question_"+0);
       console.log(question);
 
       for (var i = $scope.survey.questions.length - 1; i >= 0; i--) {
-        $scope.survey.questions[i].response = $("#question_" + i).val();
+        if ($scope.survey.questions[i].type === 'slider') {
+          $scope.survey.questions[i].response = $("#question_" + i).val();
+        } else if ($scope.survey.questions[i].type === 'select') {
+          $scope.survey.questions[i].response = $scope.survey.questions[i].selectedValue;
+        }
       };
       console.log($scope.survey.questions);
       surveyService.submitSurvey($scope.survey)

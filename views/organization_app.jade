@@ -9,7 +9,6 @@ html(class=htmlClass, data-ng-app="ShoutOut.Organization")
     title {{ title }}
     link(href='https://fonts.googleapis.com/css?family=Lato:100italic,900italic,400italic,300italic,700italic', rel='stylesheet', type='text/css')
     link(rel='stylesheet', href='/css/app.css')
-    link(rel='stylesheet', href='/css/organization.css')
 
     block styles
 
@@ -17,9 +16,9 @@ html(class=htmlClass, data-ng-app="ShoutOut.Organization")
     header(data-ng-controller="HeaderCtrl")
       nav
         .nav-wrapper
-          a.brand-logo(href="/index") 
+          a.brand-logo(href="/index")
             | Shout
-            span Out 
+            span Out
             i.fa.fa-bullhorn
           a.button-collapse(href='#', data-activates='slide-out', data-sidenav="left" data-closeonclick="true")
             i.mdi-navigation-menu
@@ -37,7 +36,7 @@ html(class=htmlClass, data-ng-app="ShoutOut.Organization")
                   a(href='/logout') Logout
         .progress(data-ng-if="loading")
           .indeterminate
-          
+
       ul#slide-out.side-nav
         li.logo: a(href="/"): i.fa.fa-bullhorn.fa-5x
         hr
@@ -66,7 +65,7 @@ html(class=htmlClass, data-ng-app="ShoutOut.Organization")
     |      // Load the Visualization API and the corechart package.
     |      google.charts.load('current', {'packages':['corechart']});
     |    </script>
-    
+
     script(src='/js/shared/module.js')
     script(src='/js/organization/module.js')
 

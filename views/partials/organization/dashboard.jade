@@ -1,12 +1,10 @@
 .col.s10.offset-s1.m8.offset-m2.l6.offset-l3
   h2(align="center") Organization Dashboard
-  h5 Invite your employees: 
+  h5 Invite your employees:
+  .row
     a(href="/signup/{{user.organization['_id']}}")
       | {{ url + '/signup/' + user.organization['_id'] }}
   .row
     a(class ="btn btn-primary" href="manage/draft") Manage Survey Draft
   .row
     .chart_container
-
-
- 
