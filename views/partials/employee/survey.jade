@@ -2,7 +2,18 @@
   .row(data-ng-repeat="question in survey.questions")
     label {{ question.name }}
 
-    .range-field
-      input(type="range" id="question_{{$index}}" min="1" max="10", value="1")
-      label Response
+
+    div(data-ng-if="question.type=='slider'")
+      .range-field
+        input(type="range" id="question_{{$index}}" min="1" max="10", value="1")
+        label Response
+
+    div(data-ng-if="question.type=='select'")
+      .input-field
+        select(data-ng-model="question.selectedValue", data-material-select)
+          option(data-ng-repeat="option in selectTypes", data-ng-disabled="!option.value", data-ng-selected="!option.value", value="{{option.value}}")
+            | {{ option.name }}
+        label Response
+
+    div(data-)
   a.btn(data-ng-click="submit()") Submit

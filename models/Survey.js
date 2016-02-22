@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
 var question = new mongoose.Schema({
   name: { type: String, required: true },
   order: { type: Number },
-  type: {type: String, enum: 'input slider'.split(' '), required: true}
+  type: {type: String, enum: 'select slider'.split(' '), required: true}
 });
 
 var schema = new mongoose.Schema({
