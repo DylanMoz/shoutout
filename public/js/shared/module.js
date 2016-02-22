@@ -51,6 +51,14 @@ angular.module('ShoutOut.Shared.Services')
 
       getSurveyResults: function() {
         return $http.get('/api/survey/results');
+      },
+
+      getAllSurveyResults: function(){
+        return $http.get('/api/survey/all-results');
+      },
+
+      getEmployeeSurveyResults: function(){
+        return $http.get('/api/survey/employee-results');
       }
     }
   }]

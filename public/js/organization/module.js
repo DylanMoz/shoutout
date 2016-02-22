@@ -17,6 +17,10 @@ config(function ($routeProvider, $locationProvider) {
       templateUrl: '/partials/organization/manage-survey',
       controller: 'ManageSurveyCtrl'
     }).
+    when('/all-results', {
+      templateUrl: '/partials/organization/all-results',
+      controller: 'AllResultsCtrl'
+    }).
     otherwise({
       redirectTo: 'dashboard'
     });
@@ -37,6 +41,7 @@ angular.module('ShoutOut.Organization.Controllers', [])
 
     surveyService.getSurveyResults()
      .then(function success(responses) {
+        console.log(responses)
         $scope.responses = responses.data;
         graphData = {};
         for (var i = $scope.responses.length - 1; i >= 0; i--) {
@@ -104,6 +109,87 @@ angular.module('ShoutOut.Organization.Controllers', [])
   }]
 )
 
+.controller('AllResultsCtrl', ['$scope', '$location',
+  'surveyService',
+  'toastService',
+  function($scope, $location, surveyService, toastService) {
+    $scope.url = $location.protocol() + "://" + $location.host() + ($location.port() ? ":" + $location.port() : "");
+
+    var graphData = {};
+    var questions = {}; 
+
+    surveyService.getAllSurveyResults()
+     .then(function success(responses) {
+        console.log("HERE");
+        console.log(responses);
+        $scope.responses = responses.data;
+        graphData = {};
+        for (var i = $scope.responses.length - 1; i >= 0; i--) {
+          var answers = $scope.responses[i].answers;
+          for (var j = answers.length - 1; j >= 0; j--) {
+            var answer = answers[j];
+            questions[answer.name] = answer;
+            if (!graphData[answer.name]){
+              graphData[answer.name] = [];
+            }
+            graphData[answer.name].push(answer.response);
+          };
+        };
+        google.charts.setOnLoadCallback(drawChart);
+      }, function error(err) {
+        toastService.error('Unable to retrieve current survey results!!');
+      }); 
+
+
+
+
+    // Callback that creates and populates a data table,
+    // instantiates the pie chart, passes in the data and
+    // draws it.
+    function drawChart() {
+      var container = $('.chart_container');
+
+      var index = 0;
+      for (var question_id in graphData) {
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Value');
+        data.addColumn('number', 'Number of Responses');
+        var groupedResponses = {};
+        for (var i = graphData[question_id].length - 1; i >= 0; i--) {
+          var value = graphData[question_id][i];
+          if (!groupedResponses[value])
+            groupedResponses[value] = 0;
+          
+          groupedResponses[value] += 1;
+        };
+
+        var rows = [];
+        for(var group in groupedResponses) {
+          rows.push([group, groupedResponses[group]]);
+        }
+
+        data.addRows(rows);
+
+        // Set chart options
+        var options = {'title': questions[question_id].name,
+                       'width':400,
+                       'height':300};
+
+        var $elem = $('<div id="chart_div_'+index+'"></div>');
+        container.append($elem);
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div_'+index));
+        chart.draw(data, options);  
+        index++;
+      }
+ 
+    }
+  }]
+)
+
+
 .controller('ManageSurveyCtrl', ['$scope', '$rootScope', '$location',
   'questionService',
   'surveyService',
@@ -142,8 +228,6 @@ angular.module('ShoutOut.Organization.Controllers', [])
         .finally(function() {
           $rootScope.loading = false;
         });
-
-
     }
 
     $scope.autoFillEditForm = function(question) {
@@ -200,3 +284,4 @@ angular.module('ShoutOut.Organization.Controllers', [])
     }
   }]
 );
+
