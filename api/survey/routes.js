@@ -203,14 +203,15 @@ router.get("/employee-results", passport.isOrganization, function(req, res) {
   if (!req.user.employee._id) {
     return res.status(400).send("Employee has no id")
   }
-  console.log(req.user.employee._id);
-  //get current org
+  //get current user id
   var currentEmp = req.user.employee._id;
+  //get current org
+  var currentOrg = req.user.employee.organization;
   var allResponses = [];
   var surveysCompleted = 0;
 
-  //get surveys from current org
-  var results = Survey.find({}, function(err, results) {  
+  //get surveys from current organization
+  var results = Survey.find({organization: currentOrg}, function(err, results) {  
     if (err) return res.status(400).send(err);
     var callbackFinish = function() {
       if (surveysCompleted == results.length){
@@ -219,6 +220,7 @@ router.get("/employee-results", passport.isOrganization, function(req, res) {
     };
     for (var i = results.length - 1; i >= 0; i--) {
 
+      //get reponses for current employee
       Response.find({employee: currentEmp}, function(err, responses) {
         if (err) return res.status(400).send(err);
         for (var j = responses.length - 1; j >= 0; j--) {
