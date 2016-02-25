@@ -13,7 +13,7 @@
             label(for='name') Question
           .col.s12(data-input-field)
             select(name="type", data-material-select, data-ng-model="form.type")
-              option(data-ng-repeat="option in questionTypes", data-ng-disabled="!option.value", data-ng-selected="!option.value", value="{{option.value}}") 
+              option(data-ng-repeat="option in questionTypes", data-ng-disabled="!option.value", data-ng-selected="!option.value", value="{{option.value}}")
                 | {{ option.name }}
               //
                 option(value="slider") Slider
@@ -22,12 +22,12 @@
                 option(value="radio") Radio
                 option(value="select") Select
                 option(value="multi-select") Multi-Select
-                
+
             label Question Type
     .modal-footer
       a.btn-flat.modal-action.modal-close.waves-effect.waves-light(data-ng-click="addQuestion(form)") Add
       a.btn-flat.modal-action.modal-close.waves-effect.waves-light Cancel
-      
+
   .card(data-ng-repeat="question in survey.questions")
     .card-content
       span.card-title {{ question.name }}
@@ -40,7 +40,7 @@
       div.input-field
         input(type="text", length="150")
         label Answer
-        
+
   #editQuestion.modal.bottom-sheet
     .modal-content
       h4 Edit Question
@@ -51,7 +51,7 @@
             label(for='name') Question
           .col.s12(data-input-field)
             select(name="type", data-material-select, data-ng-model="editForm.type")
-              option(data-ng-repeat="option in questionTypes", data-ng-disabled="!option.value", data-ng-selected="!option.value", value="{{option.value}}") 
+              option(data-ng-repeat="option in questionTypes", data-ng-disabled="!option.value", data-ng-selected="!option.value", value="{{option.value}}")
                 | {{ option.name }}
               //
                 option(value="slider") Slider
@@ -60,9 +60,8 @@
                 option(value="radio") Radio
                 option(value="select") Select
                 option(value="multi-select") Multi-Select
-                
+
             label Question Type
     .modal-footer
       a.btn-flat.modal-action.modal-close.waves-effect.waves-light(data-ng-click="editQuestion(editForm)") Save
       a.btn-flat.modal-action.modal-close.waves-effect.waves-light(data-ng-click="editForm = {};") Cancel
-      

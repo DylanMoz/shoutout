@@ -37,7 +37,7 @@ angular.module('ShoutOut.Organization.Controllers', [])
     $scope.url = $location.protocol() + "://" + $location.host() + ($location.port() ? ":" + $location.port() : "");
 
     var graphData = {};
-    var questions = {}; 
+    var questions = {};
 
     surveyService.getSurveyResults()
      .then(function success(responses) {
@@ -58,7 +58,7 @@ angular.module('ShoutOut.Organization.Controllers', [])
         google.charts.setOnLoadCallback(drawChart);
       }, function error(err) {
         toastService.error('Unable to retrieve current survey results!!');
-      }); 
+      });
 
 
 
@@ -80,7 +80,7 @@ angular.module('ShoutOut.Organization.Controllers', [])
           var value = graphData[question_id][i];
           if (!groupedResponses[value])
             groupedResponses[value] = 0;
-          
+
           groupedResponses[value] += 1;
         };
 
@@ -101,10 +101,10 @@ angular.module('ShoutOut.Organization.Controllers', [])
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('chart_div_'+index));
-        chart.draw(data, options);  
+        chart.draw(data, options);
         index++;
       }
- 
+
     }
   }]
 )
@@ -200,7 +200,7 @@ angular.module('ShoutOut.Organization.Controllers', [])
         $scope.survey = survey.data;
       }, function error(err) {
         toastService.error('Unable to retrieve survey draft!!');
-      }); 
+      });
 
     $scope.form = {
 
@@ -213,6 +213,10 @@ angular.module('ShoutOut.Organization.Controllers', [])
       {
         name: 'Slider',
         value: 'slider'
+      },
+      {
+        name: 'Select',
+        value: 'select'
       }
     ];
 

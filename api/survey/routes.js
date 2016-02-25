@@ -16,7 +16,7 @@ router.get('/draft',
     if(req.user.organization.draft_survey) {
       console.log('Org already has a draft');
       Survey.findById(req.user.organization.draft_survey, function(err, survey) {
-        if (err) return res.send(err);
+        if (err) return res.status(400).send(err);
 
         res.json(survey);
       });
@@ -24,7 +24,7 @@ router.get('/draft',
       // Create draft based off of current survey
       console.log('Org has current survey but no draft');
       Survey.findById(req.user.organization.current_survey, function(err, survey) {
-        if(err) return res.send(err);
+        if(err) return res.status(400).send(err);
 
         var draft = new Survey();
         draft.state = Survey.State().DRAFT;
@@ -32,11 +32,11 @@ router.get('/draft',
         draft.questions = survey.questions;
 
         draft.save(function(err, dbDraft) {
-          if(err) return res.send(err);
+          if(err) return res.status(400).send(err);
 
           req.user.organization.draft_survey = dbDraft._id;
           req.user.organization.save(function(err) {
-            if(err) return res.send(err);
+            if(err) return res.status(400).send(err);
 
             return res.json(dbDraft);
           });
@@ -50,12 +50,12 @@ router.get('/draft',
       draft.organization = req.user.organization._id;
 
       draft.save(function(err, dbDraft) {
-        if(err) return res.send(err);
+        if(err) return res.status(400).send(err);
 
         req.user.organization.draft_survey = dbDraft._id;
         console.log('Attached draft to org, saving org...');
         req.user.organization.save(function(err, org) {
-          if (err) return res.send(err);
+          if (err) return res.status(400).send(err);
 
           return res.json(dbDraft);
         });
@@ -114,7 +114,7 @@ router.get('/current', function(req, res) {
         return res.status(400).json({ error: "Current survey is a draft" });
 
       return res.json(dbSurvey);
-    });  
+    });
   } else {
     Organization.findById(req.user.employee.organization, function(err, dbOrganization) {
       if (err)
@@ -134,9 +134,9 @@ router.get('/current', function(req, res) {
           return res.status(400).json({ error: "Current survey is a draft" });
 
         return res.json(dbSurvey);
-      });        
+      });
     })
- 
+
 
   }
 });
