@@ -158,10 +158,82 @@ router.get("/results", passport.isOrganization, function(req, res) {
   if (!req.user.organization.current_survey) {
     return res.status(400).send("Organization does not have a current survey")
   }
+  console.log("SURVEY = " + req.user.organization.current_survey);
   Response.find({survey: req.user.organization.current_survey}, function(err, results) {
     if (err) return res.status(400).send(err);
     return res.json(results);
   });
 });
+
+router.get("/all-results", passport.isOrganization, function(req, res) {
+  if (!req.user.organization.current_survey) {
+    return res.status(400).send("Organization does not have any past surveys")
+  }
+  //get current org
+  var currentOrg = req.user.organization._id
+  var allResponses = [];
+  var surveysCompleted = 0;
+
+  //get surveys from current org
+  var results = Survey.find({organization: currentOrg}, function(err, results) {  
+    if (err) return res.status(400).send(err);
+    var callbackFinish = function() {
+      if (surveysCompleted == results.length){
+        console.log("returning");
+        return res.json(allResponses);
+      }
+    };
+    for (var i = results.length - 1; i >= 0; i--) {
+
+      Response.find({survey: results[i]._id}, function(err, responses) {
+        if (err) return res.status(400).send(err);
+        for (var j = responses.length - 1; j >= 0; j--) {
+          allResponses.push(responses[j]);
+
+        }
+        surveysCompleted++;
+        callbackFinish();
+      });  
+    }
+
+  });
+});
+
+router.get("/employee-results", passport.isOrganization, function(req, res) {
+  if (!req.user.employee._id) {
+    return res.status(400).send("Employee has no id")
+  }
+  //get current user id
+  var currentEmp = req.user.employee._id;
+  //get current org
+  var currentOrg = req.user.employee.organization;
+  var allResponses = [];
+  var surveysCompleted = 0;
+
+  //get surveys from current organization
+  var results = Survey.find({organization: currentOrg}, function(err, results) {  
+    if (err) return res.status(400).send(err);
+    var callbackFinish = function() {
+      if (surveysCompleted == results.length){
+        return res.json(allResponses);
+      }
+    };
+    for (var i = results.length - 1; i >= 0; i--) {
+
+      //get reponses for current employee
+      Response.find({employee: currentEmp}, function(err, responses) {
+        if (err) return res.status(400).send(err);
+        for (var j = responses.length - 1; j >= 0; j--) {
+          allResponses.push(responses[j]);
+
+        }
+        surveysCompleted++;
+        callbackFinish();
+      });  
+    }
+
+  });
+});
+
 
 module.exports = router;

@@ -21,6 +21,10 @@ config(function ($routeProvider, $locationProvider) {
       templateUrl: '/partials/employee/survey',
       controller: 'EmployeeSurveyCtrl'
     }).
+    when('/results', {
+      templateUrl: '/partials/employee/results',
+      controller: 'EmployeeResultsCtrl'
+    }).
     otherwise({
       redirectTo: 'dashboard'
     });

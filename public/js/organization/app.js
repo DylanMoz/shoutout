@@ -17,6 +17,10 @@ config(function ($routeProvider, $locationProvider) {
       templateUrl: '/partials/organization/manage-survey',
       controller: 'ManageSurveyCtrl'
     }).
+    when('/all-results', {
+      templateUrl: '/partials/organization/all-results',
+      controller: 'AllResultsCtrl'
+    }).
     otherwise({
       redirectTo: 'dashboard'
     });
