@@ -97,12 +97,13 @@ angular.module('ShoutOut.Employee.Controllers', [])
         name: 'Satisfied',
         value: '1'
       },
+
       {
-        name: 'Not Applicable',
+        name: 'Dissatisfied',
         value: '2'
       },
       {
-        name: 'Dissatisfied',
+        name: 'Not Applicable',
         value: '3'
       }
     ];
@@ -115,7 +116,13 @@ angular.module('ShoutOut.Employee.Controllers', [])
         if ($scope.survey.questions[i].type === 'slider') {
           $scope.survey.questions[i].response = $("#question_" + i).val();
         } else if ($scope.survey.questions[i].type === 'select') {
-          $scope.survey.questions[i].response = $scope.survey.questions[i].selectedValue;
+          if ( $scope.survey.questions[i].selectedValue != undefined) {
+            $scope.survey.questions[i].response = $scope.survey.questions[i].selectedValue;
+          }
+          else {
+            $scope.survey.questions[i].response = "Not Applicable";
+          }
+ 
         }
       };
       console.log($scope.survey.questions);
