@@ -10,8 +10,8 @@
 
     div(data-ng-if="question.type=='select'")
       .input-field
-        select(data-ng-model="question.selectedValue", data-material-select)
-          option(data-ng-repeat="option in selectTypes", data-ng-disabled="!option.value", data-ng-selected="!option.value", value="{{option.value}}")
+        select(data-ng-model="question.selectedValue", data-material-select, value="selectTypes[0]")
+          option(data-ng-repeat="option in selectTypes", data-ng-disabled="!option.value", data-ng-selected="option.value", value="{{option.name}}")
             | {{ option.name }}
         label Response
 
