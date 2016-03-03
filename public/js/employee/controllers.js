@@ -1,3 +1,6 @@
+
+var startTime;
+
 angular.module('ShoutOut.Employee.Controllers', [])
 
 .controller('EmployeeDashboardCtrl', ['$scope', '$location',
@@ -7,6 +10,25 @@ angular.module('ShoutOut.Employee.Controllers', [])
     $scope.url = $location.protocol() + "://" + $location.host() + ($location.port() ? ":" + $location.port() : "");
     var graphData = {};
     var questions = {}; 
+
+    
+
+    $(document).ready(function() {
+      startTime = new Date().getTime();
+
+      $(window).unload(function(){
+        var endTime = new Date().getTime();
+        var totalTime = endTime - startTime;
+        ga('send', 'event',{
+          'eventCategory' :'employeeDashTime1',
+          'eventAction' : totalTime 
+        });       
+      });
+
+    });
+
+
+
 
     surveyService.getEmployeeSurveyResults()
      .then(function success(responses) {
@@ -89,6 +111,16 @@ angular.module('ShoutOut.Employee.Controllers', [])
         toastService.error('Unable to retrieve survey draft!!');
       });
 
+    $(document).ready(function() {
+      var endTime = new Date().getTime();
+      var totalTime = endTime - startTime;
+      ga('send', 'event',{
+        'eventCategory' :'employeeDashTime1',
+        'eventAction' : totalTime 
+      });
+    });
+
+
     $scope.selectTypes = [
       {
         name: 'Select an answer',
@@ -135,6 +167,7 @@ angular.module('ShoutOut.Employee.Controllers', [])
         });
     }
   }
+
 ])
 
 .controller('EmployeeResultsCtrl', ['$scope', '$location',

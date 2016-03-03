@@ -28,6 +28,8 @@ config(function ($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
 });
 
+var startTime;
+
 angular.module('ShoutOut.Organization.Controllers', [])
 
 .controller('OrganizationDashboardCtrl', ['$scope', '$location',
@@ -38,6 +40,20 @@ angular.module('ShoutOut.Organization.Controllers', [])
 
     var graphData = {};
     var questions = {};
+
+    $(document).ready(function() {
+      startTime = new Date().getTime();
+
+      $(window).unload(function(){
+        var endTime = new Date().getTime();
+        var totalTime = endTime - startTime;
+        ga('send', 'event',{
+          'eventCategory' :'orgDashTime1',
+          'eventAction' : totalTime
+        }); 
+      });
+
+    });
 
     surveyService.getSurveyResults()
      .then(function success(responses) {
@@ -117,6 +133,21 @@ angular.module('ShoutOut.Organization.Controllers', [])
 
     var graphData = {};
     var questions = {}; 
+
+    $(document).ready(function() {
+      ga('send', 'event',{
+        'eventCategory' :'all_results',
+        'eventAction' : 'click' 
+      }); 
+
+
+      var endTime = new Date().getTime();
+      var totalTime = endTime - startTime;
+      ga('send', 'event',{
+        'eventCategory' :'orgDashTime1',
+        'eventAction' : totalTime
+      }); 
+    });
 
     surveyService.getAllSurveyResults()
      .then(function success(responses) {
@@ -201,6 +232,16 @@ angular.module('ShoutOut.Organization.Controllers', [])
       }, function error(err) {
         toastService.error('Unable to retrieve survey draft!!');
       });
+
+    $(document).ready(function() {
+
+      var endTime = new Date().getTime();
+      var totalTime = endTime - startTime;
+      ga('send', 'event',{
+        'eventCategory' :'orgDashTime1',
+        'eventAction' : totalTime
+      }); 
+    });
 
     $scope.form = {
 
