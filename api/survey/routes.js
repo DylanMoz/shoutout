@@ -147,6 +147,9 @@ router.post("/submit", passport.isEmployee, function(req, res) {
   response.survey = survey._id;
   response.employee = req.user.employee;
   response.answers = survey.questions;
+  //TODO
+  //save the current time
+  response.submitted = new Date().getTime();
   response.save(function(err, dbResponse) {
     if (err) return res.status(400).send(err);
 

@@ -69,7 +69,7 @@ angular.module('ShoutOut.Employee.Controllers', [])
         container.append($elem);
 
         // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div_'+index));
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div_'+index));
         chart.draw(data, options);  
         index++;
       }
@@ -207,7 +207,7 @@ angular.module('ShoutOut.Employee.Controllers', [])
         container.append($elem);
 
         // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div_'+index));
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div_'+index));
         chart.draw(data, options);  
         index++;
       }

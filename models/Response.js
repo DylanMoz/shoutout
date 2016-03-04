@@ -7,7 +7,7 @@ var schema = new mongoose.Schema({
   answers: [{
   	_id: String,
   	name: String,
-  	response: String
+  	response: String,
   }],
   submitted: Date,
 });

@@ -9,6 +9,13 @@ angular.module('ShoutOut.Organization.Controllers', [])
     var graphData = {};
     var questions = {};
 
+    surveyService.getCurrentSurvey()
+      .then(function success(survey) {
+        $scope.surveyCreated = survey.data.submitted;
+      }, function error(data) {
+        toastService.error('Unable to retrieve current survey!');
+      });
+
     surveyService.getSurveyResults()
      .then(function success(responses) {
         console.log(responses)
@@ -63,14 +70,17 @@ angular.module('ShoutOut.Organization.Controllers', [])
 
         // Set chart options
         var options = {'title': questions[question_id].name,
-                       'width':400,
+                       //'title': questions[question_id].submitted,
+                       'width':500,
                        'height':300};
 
+        //TODO var $elem = $('<div id="chart_div_'+index+'"></div>');
         var $elem = $('<div id="chart_div_'+index+'"></div>');
         container.append($elem);
 
         // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div_'+index));
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div_'+index));
+        //TODO var chart = new google.visualization.PieChart(document.getElementById('chart_div_'+index));
         chart.draw(data, options);
         index++;
       }
@@ -122,6 +132,7 @@ angular.module('ShoutOut.Organization.Controllers', [])
       var index = 0;
       for (var question_id in graphData) {
         // Create the data table.
+        console.log(questions[question_id]) ;
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Value');
         data.addColumn('number', 'Number of Responses');
@@ -142,15 +153,17 @@ angular.module('ShoutOut.Organization.Controllers', [])
         data.addRows(rows);
 
         // Set chart options
-        var options = {'title': questions[question_id].name,
-                       'width':400,
+        var options = {'title': questions[question_id].submitted,
+                       //'title': questions[question_id].submitted,
+                       'width':500,
                        'height':300};
 
         var $elem = $('<div id="chart_div_'+index+'"></div>');
         container.append($elem);
 
         // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div_'+index));
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div_'+index));
+        //TODO var chart = new google.visualization.PieChart(document.getElementById('chart_div_'+index));
         chart.draw(data, options);  
         index++;
       }
