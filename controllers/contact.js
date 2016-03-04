@@ -1,20 +1,21 @@
+var express = require('express');
 var nodemailer = require("nodemailer");
-var transporter = nodemailer.createTransport({
-  service: 'SendGrid',
-  auth: {
-    user: process.env.SENDGRID_USER,
-    pass: process.env.SENDGRID_PASSWORD
-  }
-});
+var smtpTransport = require("nodemailer-smtp-transport")
+var app = express();
+var User = require('../models/User');
+var mailOpts, transporter
+
+var transporter = nodemailer.createTransport('smtps://ShoutOutWorkApp%40gmail.com:Fusionfusio@smtp.gmail.com');
+
 
 /**
  * GET /contact
  * Contact form page.
  */
 exports.getContact = function(req, res) {
-  res.render('contact', {
+ /* res.render('contact', {
     title: 'Contact'
-  });
+  });*/
 };
 
 /**
@@ -22,9 +23,7 @@ exports.getContact = function(req, res) {
  * Send a contact form via Nodemailer.
  */
 exports.postContact = function(req, res) {
-  req.assert('name', 'Name cannot be blank').notEmpty();
   req.assert('email', 'Email is not valid').isEmail();
-  req.assert('message', 'Message cannot be blank').notEmpty();
 
   var errors = req.validationErrors();
 
@@ -33,25 +32,27 @@ exports.postContact = function(req, res) {
     return res.redirect('/contact');
   }
 
-  var from = req.body.email;
-  var name = req.body.name;
-  var body = req.body.message;
-  var to = 'your@email.com';
+  var from = "ShoutOutWorkApp@gmail.com";
+  var to = req.body.email;
+  var body = "Hello!! Join us at ShoutOut by signing up with the following link!\n\n" + "http://localhost:3000/signup/" + req.user.organization._id;
   var subject = 'Contact Form | Hackathon Starter';
 
-  var mailOptions = {
-    to: to,
+  var mailOpts = {
     from: from,
+    to: to,
     subject: subject,
     text: body
   };
 
-  transporter.sendMail(mailOptions, function(err) {
+  transporter.sendMail(mailOpts, function(err, response) {
     if (err) {
+          console.log("ERRORS");
+          console.log(err.message);
+          console.log("I guess it was printed");
       req.flash('errors', { msg: err.message });
       return res.redirect('/contact');
     }
     req.flash('success', { msg: 'Email has been sent successfully!' });
-    res.redirect('/contact');
+    res.redirect('/');
   });
 };

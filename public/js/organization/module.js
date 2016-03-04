@@ -38,6 +38,7 @@ angular.module('ShoutOut.Organization.Controllers', [])
   function($scope, $location, surveyService, toastService) {
     $scope.url = $location.protocol() + "://" + $location.host() + ($location.port() ? ":" + $location.port() : "");
 
+
     var graphData = {};
     var questions = {};
 
@@ -47,10 +48,12 @@ angular.module('ShoutOut.Organization.Controllers', [])
       $(window).unload(function(){
         var endTime = new Date().getTime();
         var totalTime = endTime - startTime;
-        ga('send', 'event',{
-          'eventCategory' :'orgDashTime1',
+      /*  ga('send', 'event',{
+         // 'eventCategory' :'orgDashTime1',
+          'eventCategory' :'test',
+
           'eventAction' : totalTime
-        }); 
+        }); */
       });
 
     });
@@ -135,18 +138,22 @@ angular.module('ShoutOut.Organization.Controllers', [])
     var questions = {}; 
 
     $(document).ready(function() {
-      ga('send', 'event',{
-        'eventCategory' :'all_results',
+   /*   ga('send', 'event',{
+        //'eventCategory' :'all_results',
+        'eventCategory' :'test',
+
         'eventAction' : 'click' 
-      }); 
+      }); */
 
 
       var endTime = new Date().getTime();
       var totalTime = endTime - startTime;
-      ga('send', 'event',{
-        'eventCategory' :'orgDashTime1',
+    /*  ga('send', 'event',{
+       // 'eventCategory' :'orgDashTime1',
+        'eventCategory' :'test',
+
         'eventAction' : totalTime
-      }); 
+      }); */
     });
 
     surveyService.getAllSurveyResults()
@@ -237,10 +244,12 @@ angular.module('ShoutOut.Organization.Controllers', [])
 
       var endTime = new Date().getTime();
       var totalTime = endTime - startTime;
-      ga('send', 'event',{
-        'eventCategory' :'orgDashTime1',
+     /* ga('send', 'event',{
+       // 'eventCategory' :'orgDashTime1',
+        'eventCategory' :'test',
+
         'eventAction' : totalTime
-      }); 
+      }); */
     });
 
     $scope.form = {

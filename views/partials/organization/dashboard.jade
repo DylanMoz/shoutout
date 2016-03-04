@@ -1,9 +1,19 @@
 .col.s10.offset-s1.m8.offset-m2.l6.offset-l3
   h2(align="center") Organization Dashboard
-  h5 Invite your employees by e-mailing this them this link!: 
+  h5 Invite your employees!
   .row
     a(href="/signup/{{user.organization['_id']}}")
-      | {{ url + '/signup/' + user.organization['_id'] }}
+  form(action='/contact', name='contactus', id='contactus', method='post')
+    .row
+      label(for='email') Email
+      input(name='email', type='text', value='', id='email')
+
+      input(class="btn btn-primary" name='submit', type='submit', value='Invite!', id='submit')
+    if(typeof msg !== 'undefined')
+      if(!!err)
+        div(class='msgbox err') #{msg}
+      else
+        div(class='msgbox success') #{msg}
   .row
     a(class ="btn btn-primary" href="manage/draft") Manage Survey Draft
   .row
