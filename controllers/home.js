@@ -9,17 +9,7 @@ exports.index = function(req, res) {
   } else if (req.user && req.user.employee) {
     res.redirect('/employee/dashboard');
   } else {
-
-  var random_num = Math.random();
-    console.log(random_num);
-
-    if (random_num > 0.5) {
-        console.log("NEW");
-        res.redirect('/index');
-    } else {
-      console.log("OLD");
-      res.redirect('http://shoutout-old.herokuapp.com/index');
-    }
+    res.redirect('/index');
   }
 };
 

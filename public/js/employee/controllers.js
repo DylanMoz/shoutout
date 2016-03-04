@@ -19,11 +19,10 @@ angular.module('ShoutOut.Employee.Controllers', [])
       $(window).unload(function(){
         var endTime = new Date().getTime();
         var totalTime = endTime - startTime;
-       /* ga('send', 'event',{
-        //  'eventCategory' :'employeeDashTime1',
-          'eventCategory' :'test',
+        ga('send', 'event',{
+          'eventCategory' :'employeeDashTime1',
           'eventAction' : totalTime 
-        });  */     
+        });     
       });
 
     });
@@ -115,11 +114,10 @@ angular.module('ShoutOut.Employee.Controllers', [])
     $(document).ready(function() {
       var endTime = new Date().getTime();
       var totalTime = endTime - startTime;
-     /* ga('send', 'event',{
-       // 'eventCategory' :'employeeDashTime1',
-       'eventCategory' :'test',
+      ga('send', 'event',{
+        'eventCategory' :'employeeDashTime1',
         'eventAction' : totalTime 
-      });*/
+      });
     });
 
 

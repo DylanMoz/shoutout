@@ -34,7 +34,7 @@ exports.postContact = function(req, res) {
 
   var from = "ShoutOutWorkApp@gmail.com";
   var to = req.body.email;
-  var body = "Hello!! Join us at ShoutOut by signing up with the following link!\n\n" + "http://localhost:3000/signup/" + req.user.organization._id;
+  var body = "Hello!! Join us at ShoutOut by signing up with the following link!\n\n" + "http://shoutoutbeta.herokuapp.com/signup/" + req.user.organization._id;
   var subject = 'Contact Form | Hackathon Starter';
 
   var mailOpts = {
