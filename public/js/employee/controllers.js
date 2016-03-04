@@ -22,7 +22,7 @@ angular.module('ShoutOut.Employee.Controllers', [])
         ga('send', 'event',{
           'eventCategory' :'employeeDashTime1',
           'eventAction' : totalTime 
-        });       
+        });     
       });
 
     });

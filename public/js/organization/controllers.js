@@ -8,6 +8,7 @@ angular.module('ShoutOut.Organization.Controllers', [])
   function($scope, $location, surveyService, toastService) {
     $scope.url = $location.protocol() + "://" + $location.host() + ($location.port() ? ":" + $location.port() : "");
 
+
     var graphData = {};
     var questions = {};
 
