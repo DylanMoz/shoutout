@@ -10,7 +10,9 @@ var question = new mongoose.Schema({
 var schema = new mongoose.Schema({
   questions: [question],
   organization: { type: ObjectId, ref: 'Organization', required: true, index: true },
-  state: { type: String, enum: 'draft locked'.split(' ')}
+  state: { type: String, enum: 'draft locked'.split(' ')},
+  created: {type: Date }
+
 });
 
 schema.statics.State = function() {

@@ -62,14 +62,13 @@ angular.module('ShoutOut.Employee.Controllers', [])
     });
 
 
-
-
     surveyService.getEmployeeSurveyResults()
      .then(function success(responses) {
         console.log(responses);
         $scope.responses = responses.data;
         graphData = {};
         for (var i = $scope.responses.length - 1; i >= 0; i--) {
+          var date = $scope.responses[i].submitted;
           var answers = $scope.responses[i].answers;
           for (var j = answers.length - 1; j >= 0; j--) {
             var answer = answers[j];
@@ -77,7 +76,8 @@ angular.module('ShoutOut.Employee.Controllers', [])
             if (!graphData[answer.name]){
               graphData[answer.name] = [];
             }
-            graphData[answer.name].push(answer.response);
+            graphData[answer.name].push([answer.response, date]);
+
           };
         };
         google.charts.setOnLoadCallback(drawChart);
@@ -86,48 +86,60 @@ angular.module('ShoutOut.Employee.Controllers', [])
       }); 
 
 
-
-
     // Callback that creates and populates a data table,
     // instantiates the pie chart, passes in the data and
     // draws it.
-    function drawChart() {
+   function drawChart() {
       var container = $('.chart_container');
 
       var index = 0;
+        console.log("print");
+        console.log(graphData);
       for (var question_id in graphData) {
         // Create the data table.
         var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Value');
-        data.addColumn('number', 'Number of Responses');
+                data.addColumn('date', 'Number of Responses');
+
+        data.addColumn('number', 'Value');
         var groupedResponses = {};
+        console.log("quesiton_id");
+        console.log(graphData[question_id]);
+
+       
         for (var i = graphData[question_id].length - 1; i >= 0; i--) {
-          var value = graphData[question_id][i];
-          if (!groupedResponses[value])
-            groupedResponses[value] = 0;
-          
-          groupedResponses[value] += 1;
+           var value = graphData[question_id][i][0];
+           if (value == "Satisfied")
+              value = 2
+           if (value == "Not Applicable")
+              value = 1
+           if (value == "Dissatisfied")
+              value = 0
+           var date = graphData[question_id][i][1];
+           var updateDate = new Date(date);
+           console.log(updateDate);
+          var rows = [];
+          rows.push([updateDate, Number(value)]);
+                  data.addRows(rows);
         };
-
-        var rows = [];
-        for(var group in groupedResponses) {
-          rows.push([group, groupedResponses[group]]);
-        }
-
-        data.addRows(rows);
 
         // Set chart options
         var options = {'title': questions[question_id].name,
-                       'width':400,
-                       'height':300};
+                       'width':500,
+                       'height':300,
+                        hAxis: {title: 'Date'},
+                        vAxis: {title: 'Score'},
+                       legend: 'none'
+                     };
 
         var $elem = $('<div id="chart_div_'+index+'"></div>');
         container.append($elem);
 
         // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div_'+index));
+        var chart = new google.visualization.ScatterChart(document.getElementById('chart_div_'+index));
         chart.draw(data, options);  
         index++;
+
+
       }
  
     }
@@ -274,7 +286,7 @@ angular.module('ShoutOut.Employee.Controllers', [])
         container.append($elem);
 
         // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div_'+index));
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div_'+index));
         chart.draw(data, options);  
         index++;
       }
